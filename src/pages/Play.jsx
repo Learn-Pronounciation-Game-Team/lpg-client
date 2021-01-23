@@ -6,12 +6,13 @@ import Sketch from "react-p5";
 import Word from '../helpers/randomText'
 
 function Play() {
-  const [ word, setWord ] = useState("")
-  const [ words, setWords ] = useState(['hello', 'world', 'come', 'on'])
+  const [ word, setWord ] = useState("says now")
+  const [ words, setWords ] = useState(['hello', 'speech', 'come', 'on'])
   const { transcript } = useSpeechRecognition()
   const { height, width } = useWindowDimensions();
   const [ isFinish, setIsFinish ] = useState(false)
   const [ moving, setMoving ] = useState([])
+  const [ loading, setLoading ] = useState(true)
 
   // ? Speech Recognition
   useEffect(()=> {
@@ -23,10 +24,21 @@ function Play() {
       const filteredMoving = moving.filter(move => move.text !== inputs[inputs.length - 1])
       setMoving(filteredMoving)
     }
-  }, [transcript])
+    console.log(inputs[inputs.length - 1], "cek lagi")
+  }, [transcript, word, words, moving ])
   
+  
+
   function start(){
-    return SpeechRecognition.startListening()
+    // if (loading) {
+    //   setTimeout(() => {
+    //     return <h1>tungguin dulu yang sabar</h1>
+    //   }, 2000)
+    //   setLoading(false)
+    // } else {
+    //   return SpeechRecognition.startListening({ language: 'en-GB' })
+    // }
+    return SpeechRecognition.startListening({ language: 'en-GB' })
 	} 
     
 	function end(){
@@ -77,13 +89,13 @@ function Play() {
       // NOTE: Do not use setState in the draw function or in functions that are executed
       // in the draw function...
       // please use normal variables or class properties for these purposes
-};
+  };
 
   return (
     <div className="container text-center mt-5 bg-warning">
       <ClickNHold 
         className=" w-1/12"
-				time={2} // Time to keep pressing. Default is 2
+				time={0} // Time to keep pressing. Default is 2
 				onStart={start} // Start callback
 				onClickNHold={Hold} //Timeout callback
 				onEnd={end} > 
@@ -94,7 +106,7 @@ function Play() {
       {words}
       <p>{width}</p>
       <p>{height}</p>
-
+      
       <div>
         <Sketch setup={setup} draw={draw} className="" />
         <div className="text-blue-500">
