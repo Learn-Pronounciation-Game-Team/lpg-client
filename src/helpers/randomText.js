@@ -1,5 +1,5 @@
 class Word {
-  constructor(x, y, xSpeed, ySpeed, text, width, height) {
+  constructor(x, y, xSpeed, ySpeed, text, width, height, image) {
     this.x = x;
     this.y = y;
     this.xSpeed = xSpeed;
@@ -7,6 +7,7 @@ class Word {
     this.text = text
     this.width = width
     this.height = height
+    this.image = image
   }
 
   move() {
@@ -16,7 +17,7 @@ class Word {
     }
 
     this.y += this.ySpeed;
-    if (this.y < 30 || this.y > this.height / 2) {
+    if (this.y < 30 || this.y > this.height / 1.5) {
       this.ySpeed *= -1;
     }
   }
@@ -25,6 +26,7 @@ class Word {
     p5.textSize(32);
     p5.fill('white')
     p5.text(this.text, this.x, this.y);
+    p5.image(this.image, this.x, this.y, 100, 100)
   }
 }
 
