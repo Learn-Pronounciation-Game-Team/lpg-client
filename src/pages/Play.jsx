@@ -4,6 +4,7 @@ import ClickNHold from 'react-click-n-hold';
 import useWindowDimensions from '../helpers/getCurrentWindow'
 import Sketch from "react-p5";
 import Word from '../helpers/randomText'
+import image from '../assets/Game_-_Logo.png'
 
 function Play() {
   const [ word, setWord ] = useState("says now")
@@ -60,9 +61,9 @@ function Play() {
   const setup = (p5, canvasParentRef) => {
       // use parent to render the canvas in this ref
       // (without that p5 will render the canvas outside of your component)
-      p5.createCanvas(width / 2, height / 2).parent(canvasParentRef);
+      p5.createCanvas(width / 2, height / 1.5).parent(canvasParentRef);
       for(let i = 0; i < words.length; i++) {
-        moving[i] = new Word(p5.random(40, (width / 2) - 40), p5.random(40, (height / 2) - 40), p5.random(-3, 3), p5.random(-3, 3), words[i], width, height);
+        moving[i] = new Word(p5.random(40, (width / 2) - 40), p5.random(40, (height / 1.5) - 40), p5.random(-3, 3), p5.random(-3, 3), words[i], width, height, p5.loadImage(image));
       }
   };
 
@@ -92,7 +93,7 @@ function Play() {
   };
 
   return (
-    <div className="container text-center mt-5 bg-warning">
+    <div className="container text-center mt-5 bg-warning p-3">
       <ClickNHold 
         className=" w-1/12"
 				time={0} // Time to keep pressing. Default is 2
