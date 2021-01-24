@@ -1,15 +1,13 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
-import useWindowDimensions from '../helpers/getCurrentWindow'
-import containerMain from '../assets/containerMain.png'
+// import containerMain from '../assets/containerMain.png'
 
 export default function LandingPage() {
     const history = useHistory()
-    const [ username, setUsername ] = useState();
-    const { height, width } = useWindowDimensions();
+    const [ name, setName ] = useState("");
 
-    function jumpToGame() {
-        history.push('/gameplay')
+    function jumpToGame(diff) {
+        history.push('/gameplay', { diff, name })
     }
 
     function jumpToHowToPlay() {
@@ -21,18 +19,28 @@ export default function LandingPage() {
     }
 
     function jumpToPreparationPage() {
-        history.push('/perparationpage')
+        history.push('/preparation')
     }
     
     return (
-        <div style={{ backgroundColor: '#F0C38E', width: width, height: height }}>
-            <form onSubmit={jumpToGame}>
-                <input type="text" placeholder="Type your name"/>
-                <button type="submit"> Play </button>
-            </form>
-                <button type="submit" onClick={jumpToHowToPlay}> How to play </button>
-                <button type="submit"onClick={jumpToLeaderBoard}> Leaderboard </button>
-                <button type="submit" onClick={jumpToPreparationPage}> PreparationPage </button>
+        <div className="flex flex-col items-center border">
+          <input type="text" name="name" className="border" placeholder="Type your name" onChange={(e) => setName(e.target.value)} value={name}/>
+          {
+            name === '' || name.trim() === ''
+            ?
+            ""
+            :
+            <div>
+              <button type="button" onClick={() => jumpToGame('Easy')}>Easy</button>
+              <button type="button" onClick={() => jumpToGame('Medium')}>Medium</button>
+              <button type="button" onClick={() => jumpToGame('Hard')}>Hard</button>
+            </div>
+          }
+          <button type="button" onClick={jumpToHowToPlay}> How to play </button>
+          <button type="button"onClick={jumpToLeaderBoard}> Leaderboard </button>
+          <button type="button" onClick={jumpToPreparationPage}> PreparationPage </button>
+
+          {name}
         </div>
     )
 }
