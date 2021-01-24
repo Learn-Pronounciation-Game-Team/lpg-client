@@ -25,7 +25,7 @@ function App() {
           <Route path="/gameplay">
             <Play />
           </Route>
-          <Route path="/preparationpage">
+          <Route path="/preparation">
             <PreparationPage />
           </Route>
         </Switch>
