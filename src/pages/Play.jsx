@@ -66,6 +66,10 @@ function Play() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isFinish])
   
+  const getLastIndex = (input) => {
+    let arr = input.split(' ')
+    return arr[arr.length - 1]
+  }
 
   // ? kondisional untuk post ke server
   useEffect(() => {
@@ -84,9 +88,9 @@ function Play() {
   const setup = (p5, canvasParentRef) => {
       // use parent to render the canvas in this ref
       // (without that p5 will render the canvas outside of your component)
-      p5.createCanvas(width / 2, height / 1.5).parent(canvasParentRef);
+      p5.createCanvas(width / 2, height / 2).parent(canvasParentRef);
       for(let i = 0; i < words.length; i++) {
-        moving[i] = new Word(p5.random(40, (width / 2) - 40), p5.random(40, (height / 1.5) - 40), p5.random(-3, 3), p5.random(-3, 3), words[i], width, height, p5.loadImage(image));
+        moving[i] = new Word(p5.random(40, (width / 2) - 100), p5.random(40, (height / 2) - 100), p5.random(-3, 3), p5.random(-3, 3), words[i], width, height, p5.loadImage(image));
       }
   };
 
@@ -110,10 +114,10 @@ function Play() {
     return <div>Loading...</div>
   }
   return (
-    <div className="max-h-screen">
-      <div className="h-screen flex items-center justify-center">
-        <div className="bg-containerMain bg-cover p-24 rounded-3xl shadow-2xl">
-          <div className="flex justify-around">
+    <div className="max-h-screen my-5">
+      <div className="flex items-center justify-center">
+        <div className="bg-containerMain bg-cover rounded-3xl shadow-2xl p-14 w-8/12">
+          <div className="flex justify-around items-center pb-4">
             <ClickNHold 
               className=" bg-green-400 px-4 py-3 hover:bg-green-700 border border-black rounded-lg"
               time={1} // Time to keep pressing. Default is 2
@@ -123,10 +127,12 @@ function Play() {
               >
               <button>Press & Hold</button>
             </ClickNHold>
-            <p className=" font-press-start2p">Name : {state.name}</p>
-            <p className=" font-press-start2p">Score : {score}</p>
+            <p className=" font-press-start2p text-white">Name : {state.name}</p>
+            <p className=" font-press-start2p text-white">Score : {score}</p>
           </div>
-          <p className="w-11/12 border font-press-start2p break-words">What you said : {word}</p>
+          <div className="flex justify-center text-white">
+            <p className="w-6/12 font-press-start2p break-words">What you said : { word === '' ? '' : getLastIndex(word)}</p>
+          </div>
           <div className="flex justify-center flex-row">
             <Sketch setup={setup} draw={draw} className="" />
           </div>
