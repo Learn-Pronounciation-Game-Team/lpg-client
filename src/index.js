@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom';
 import './assets/css/index.css'
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './assets/fonts/PressStart2P-Regular.ttf'
+import './assets/fonts/VT323-Regular.ttf'
 
 ReactDOM.render(
   <React.StrictMode>

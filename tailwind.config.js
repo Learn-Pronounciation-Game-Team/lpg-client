@@ -3,6 +3,9 @@ module.exports = {
   darkMode: false, // or 'media' or 'class'
   theme: {
     extend: {
+      backgroundImage: theme => ({
+        'containerMain': "url('../background/containerMain.jpg')",
+       }),
       fontFamily: {
         'press-start2p': ['"Press Start 2P"', 'cursive'],
       }
