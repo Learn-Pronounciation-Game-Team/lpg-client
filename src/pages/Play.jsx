@@ -116,15 +116,20 @@ function Play() {
       // use parent to render the canvas in this ref
       // (without that p5 will render the canvas outside of your component)
       bombImage = p5.loadImage(bomb)
-
-      p5.createCanvas(width / 2, height / 2).parent(canvasParentRef);
+  
+      // p5.createCanvas(width / 2, height / 2).parent(canvasParentRef);
+      p5.createCanvas(width / 1.5, height / 1.5).parent(canvasParentRef);
       for(let i = 0; i < words.length; i++) {
         moving[i] = new Word(p5.random(40, (width / 2) - 100), p5.random(40, (height / 2) - 100), p5.random(-3, 3), p5.random(-3, 3), words[i], width, height, p5.loadImage(image));
       }
   };
 
+  const windowResized = (p5) => {
+    p5.resizeCanvas(width / 1.5, height / 1.5)
+  }
+
   const draw = (p5) => {
-    p5.background(50);
+    p5.background('#48426D');
 
     if (isExplode === true) {
       let frames = explodeJson.frames
@@ -181,12 +186,17 @@ function Play() {
     return <div>Loading...</div>
   }
   return (
-    <div className="max-h-screen my-5">
-      <div className="flex items-center justify-center">
-        <div className="bg-containerMain bg-cover rounded-3xl shadow-2xl p-14 w-8/12">
-          <div className="flex justify-around items-center pb-4">
-            <ClickNHold 
-              className=" bg-green-400 px-4 py-3 hover:bg-green-700 border border-black rounded-lg"
+    <div className="background py-2">
+      <h1 className="sm:text-3xl text-center text-1xl py-3">Good Luck!</h1>
+      <div className="flex w-full justify-center sm:items-end items-center flex-col sm:flex-row">
+        <Sketch setup={setup} draw={draw} windowResized={windowResized} className=" order-1"/>
+        <div className="order-2 flex flex-col justify-around">
+          <p className="leaderboard-list">You said: {getLastIndex(word)}</p>
+          <p className="leaderboard-list">{state.name}</p>
+          <p className="leaderboard-list">Score: {score}</p>
+          <div className="mt-3">
+            <ClickNHold
+              className="button"
               time={1} // Time to keep pressing. Default is 2
               onStart={start} // Start callback
               onClickNHold={Hold} //Timeout callback
@@ -194,14 +204,6 @@ function Play() {
               >
               <button>Press & Hold</button>
             </ClickNHold>
-            <p className=" font-press-start2p text-white">Name : {state.name}</p>
-            <p className=" font-press-start2p text-white">Score : {score}</p>
-          </div>
-          <div className="flex justify-center text-white">
-            <p className="w-6/12 font-press-start2p break-words">What you said : { word === '' ? '' : getLastIndex(word)}</p>
-          </div>
-          <div className="flex justify-center flex-row">
-            <Sketch setup={setup} draw={draw} className="" />
           </div>
         </div>
       </div>

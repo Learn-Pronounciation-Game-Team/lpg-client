@@ -16,30 +16,47 @@ export default function PreparationPage() {
     }
 
     return (
-      <div className="flex items-center justify-center flex-col">
-        <img className="w-auto h-auto mt-20" src={gameLogo} alt="LPG Icon" />
-        <h1 className="text-6xl mb-5">Who are you?</h1>
-        <div className="flex flex-row items-center justify-center text-center">
-          <form>
-            <input type="text" className="text-center my-5 bg-transparent border-0 border-b-2 border-yellow-200 w-full" placeholder="Type your name here..." value={name} onChange={(e) => setName(e.target.value)} />
-            <label htmlFor="difficulty" className="mt-5">Difficulty</label>
-            <div className="mt-5 flex align-middle justify-center">
-              <label htmlFor="easy" className="mr-10">
-                <input type="radio" name="difficulty" id="easy" value="Easy" className="bg-transparent border-yellow-200 mr-4" checked={diff === 'Easy'} onChange={(e) => setDiff(e.target.value)}/>
+      <div className="background">
+        <img className="sm:w-3/12 w-5/12 h-auto py-6" src={gameLogo} alt="LPG Icon" />
+        <h1 className="sm:text-3xl text-center text-1xl">Who are you?</h1>
+        <div className="flex flex-col items-center justify-center text-center w-10/12 sm:w-6/12">
+          <input
+            type="text"
+            className="text-center my-5 bg-transparent border-0 border-b-2 sm:text-base text-xs border-yellow-200 w-full"
+            placeholder="Type your name here..."
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+          />
+          <p className="mb-2">Difficulty</p>
+          <div className="flex flex-wrap w-5/6 sm:w-10/12 justify-around mb-2">
+            <div>
+              <label className="flex items-center" htmlFor="easy">
+                <input type="radio" name="difficulty" id="easy" value="Easy" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Easy'} onChange={(e) => setDiff(e.target.value)}/>
                 Easy
               </label>
-              <label htmlFor="medium" className="mr-10">
-                <input type="radio" name="difficulty" id="medium" value="Medium" className="bg-transparent border-yellow-200 mr-4" checked={diff === 'Medium'} onChange={(e) => setDiff(e.target.value)}/>
+            </div>
+            <div>
+              <label className="flex items-center" htmlFor="medium">
+                <input type="radio" name="difficulty" id="medium" value="Medium" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Medium'} onChange={(e) => setDiff(e.target.value)}/>
                 Medium
               </label>
-              <label htmlFor="hard" className="mr-10">
-                <input type="radio" name="difficulty" id="hard" value="Hard" className="bg-transparent border-yellow-200 mr-4" checked={diff === 'Hard'} onChange={(e) => setDiff(e.target.value)}/>
-                Hard
-              </label>
             </div>
-            <button className="outline-yellow rounded-lg my-10 py-5 px-5 mx-10" style={{width: '250px'}} onClick={() => history.push('/')}>Back</button>
-            <button className="outline-yellow rounded-lg my-10 py-5 px-5 mx-10" style={{width: '250px'}}  disabled={name === '' || name.trim() === '' || name.length > 10 ? true : false} onClick={jumpToGame}>Next</button>
-          </form>
+            <label className="flex items-center" htmlFor="hard">
+              <input type="radio" name="difficulty" id="hard" value="Hard" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Hard'} onChange={(e) => setDiff(e.target.value)}/>
+              Hard
+            </label>
+          </div>
+          <div className="flex flex-col sm:flex-row py-3">
+            <button
+              className="button order-1"
+              onClick={() => history.push('/')}
+            >Back</button>
+            <button
+              className="button disabled:opacity-50 sm:order-2"
+              disabled={name === '' || name.trim() === '' || name.length > 10 || diff === '' ? true : false}
+              onClick={jumpToGame}
+            >Next</button>
+          </div>
         </div>
       </div>
     )

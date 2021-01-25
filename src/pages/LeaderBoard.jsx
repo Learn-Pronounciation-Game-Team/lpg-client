@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import API from '../api/index'
-import Loading from './Loading'
+import LeaderboardList from '../components/LeaderboardList'
+import Loading from '../components/Loading'
 
 function LeaderBoard() {
-    const [ leaderboard, setLeaderboard ] = useState([])
+    const [ easyLeaderboard, setEasyLeaderboard ] = useState([])
+    const [ mediumLeaderboard, setMediumLeaderboard ] = useState([])
+    const [ hardLeaderboard, setHardLeaderboard ] = useState([])
     const [ loading, setLoading ] = useState()
     const history = useHistory()
 
@@ -12,7 +15,13 @@ function LeaderBoard() {
       setLoading(true)
       API.fetchLeaderBoard()
         .then((res) => {
-          setLeaderboard(res.leaderboard)
+          const sorted = res.leaderboard.sort((a, b) => b.score - a.score)
+          const toEasy = sorted.filter(board => board.difficulty === 'Easy')
+          const toMedium = sorted.filter(board => board.difficulty === 'Medium')
+          const toHard = sorted.filter(board => board.difficulty === 'Hard')
+          setEasyLeaderboard(toEasy)
+          setMediumLeaderboard(toMedium)
+          setHardLeaderboard(toHard)
           setLoading(false)
         })
     }, [])
@@ -21,26 +30,12 @@ function LeaderBoard() {
       return <Loading />
     }
     return (
-        <div className="flex justify-center items-center flex-col">
-            <h1 className="text-4xl mt-20">Leaderboard</h1>
-            <table className="text-center my-10 table-fixed w-3/4">
-                <thead>
-                    <th>Rank</th>
-                    <th>Player Name</th>
-                    <th>Score</th>
-                    <th>Difficulty</th>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Scott</td>
-                        <td>900</td>
-                        <td>Hard</td>
-                    </tr>
-                </tbody>
-            </table>
-            {JSON.stringify(leaderboard)} 
-        <button onClick={() => history.push('/')} className="outline-yellow rounded-lg py-5 px-5 mx-10" style={{width: '250px'}}>Back</button>
+        <div className="background py-10">
+          <h1 className="sm:text-4xl text-2xl text-center mb-3">Leaderboard</h1>
+          <LeaderboardList data={easyLeaderboard} diff="Easy" />
+          <LeaderboardList data={mediumLeaderboard} diff="Medium" />
+          <LeaderboardList data={hardLeaderboard} diff="Hard" />
+          <button onClick={() => history.push('/')} className="button mt-3">Back</button>
         </div>
     )
 }

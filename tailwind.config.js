@@ -4,18 +4,24 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: theme => ({
-        'containerMain': "url('../background/containerMain.jpg')",
+        'wave-purple-dark': "url('../background/wave-purple-dark.svg')",
        }),
       fontFamily: {
         'press-start2p': ['"Press Start 2P"', 'cursive'],
       },
       outline: {
         yellow: ['2px solid #fde68a']
-      }
+      },
+      backgroundColor: theme => ({
+        ...theme('colors'),
+        'purple-light': '#48426D'
+      }),
     },
   },
   variants: {
-    extend: {},
+    extend: {
+      opacity: ['disabled'],
+    }
   },
   plugins: [
     require('@tailwindcss/forms')

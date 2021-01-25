@@ -3,3 +3,17 @@
 @tailwind utilities;
 
 @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+@layer components {
+  .button {
+    @apply outline-yellow rounded-lg py-5 px-5 mx-10 w-60
+  }
+
+  .background {
+    @apply bg-wave-purple-dark bg-purple-light bg-no-repeat bg-bottom w-full flex items-center justify-center flex-col min-h-screen
+  }
+
+  .leaderboard-list {
+    @apply px-3 sm:text-base text-xs text-center break-all
+  }
+}
