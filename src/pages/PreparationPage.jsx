@@ -10,7 +10,8 @@ export default function PreparationPage() {
     const [ name, setName ] = useState("");
 
     function jumpToGame(diff) {
-        history.push('/gameplay', { diff, name })
+      let appear = diff === 'Easy' ? 3 : diff === 'Medium' ? 5 : 7
+      history.push('/gameplay', { diff, name, appear })
     }
 
     return (
