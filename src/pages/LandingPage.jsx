@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useHistory } from 'react-router-dom'
-import useWindowDimensions from '../helpers/getCurrentWindow'
 
 //Assets
 import gameLogo from '../assets/gameLogo.png'
@@ -10,8 +9,6 @@ import btnLeaderboard from '../assets/buttons/btn-leaderboard.png'
 
 export default function LandingPage() {
   const history = useHistory()
-  const [username, setUsername] = useState();
-  const { height, width } = useWindowDimensions();
 
   function jumpToHowToPlay() {
     history.push('/howtoplay')
@@ -22,11 +19,11 @@ export default function LandingPage() {
   }
 
   function jumpToPreparationPage() {
-    history.push('/preparationpage')
+    history.push('/preparation')
   }
 
   return (
-    <div className="max-h-screen" style={{ backgroundColor: '#F0C38E', width: width, height: height }}>
+    <div className="max-h-screen">
       <div className="h-screen flex items-center justify-center">
         <div className="bg-containerMain bg-cover p-24 rounded-3xl shadow-2xl">
           <div className="text-4xl uppercase mb-8 text-white flex items-center justify-center font-press-start2p" >
