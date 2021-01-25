@@ -15,7 +15,7 @@ let bombImage
 function Play() {
   const { state } = useLocation();
   const [ loading, setLoading ] = useState()
-  const [isExplode, setExplode] = useState(false)
+  const [ isExplode, setExplode ] = useState(false)
   const [ word, setWord ] = useState("says now")
   const [ words, setWords ] = useState([])
   const { transcript } = useSpeechRecognition()
@@ -24,10 +24,24 @@ function Play() {
   const [ moving, setMoving ] = useState([])
   const [ score, setScore ] = useState(0)
   const history = useHistory()
+  //===================================================
+  const [timeLeft, setTimeLeft] = useState(10);
+  let cSize = 10
+  let yPos = 400
+  let cTrans = 255
+  //===================================================
+
+  useEffect(() => { //timeleft
+    if (!timeLeft) return;
+    const intervalId = setInterval(() => {
+      setTimeLeft(timeLeft - 1);
+    }, 1000);
+    return () => clearInterval(intervalId);
+  }, [timeLeft]);
 
   // ? Speech Recognition
   function start(){
-    return SpeechRecognition.startListening({ language: 'en-GB' })
+    return SpeechRecognition.startListening({ language: 'en-US' })
 	} 
     
 	function end(){
@@ -77,16 +91,21 @@ function Play() {
 
   // ? kondisional untuk post ke server
   useEffect(() => {
-    if (score === 5) {
-      API.postLeaderBoard({name: state.name, score, difficulty: state.diff})
+    if (timeLeft === 0) {
+      if (score === 0) {
+        end()
+        history.replace('/leaderboard')
+      } else {
+        API.postLeaderBoard({name: state.name, score, difficulty: state.diff})
         .then((res) => {
           end()
           history.replace('/leaderboard')
         })
         .catch((err) => console.log(err))
+      }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [score])
+  }, [score, timeLeft])
   
   // ? P5JS
   const setup = (p5, canvasParentRef) => {
@@ -135,6 +154,23 @@ function Play() {
       // NOTE: Do not use setState in the draw function or in functions that are executed
       // in the draw function...
       // please use normal variables or class properties for these purposes
+
+    p5.fill("orange");
+    p5.textSize(30);
+    
+    if (timeLeft === 0) {
+      p5.fill(255, 0, 255, cTrans)
+      p5.ellipse(450, yPos, cSize)
+      yPos -= 10
+      cSize += 3
+      cTrans -= 3
+    }
+
+    if ( timeLeft > 9 ) {
+      p5.text("00 : " + timeLeft + " : " + p5.millis().toString().slice(2, 4) , p5.width/2.35, p5.height/20)
+    } else if ( timeLeft < 10 ) {
+      p5.text("00 : 0" + timeLeft + " : " + p5.millis().toString().slice(2, 4) , p5.width/2.35, p5.height/20)
+    }
   };
 
   if (loading) {
