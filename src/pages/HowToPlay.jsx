@@ -9,9 +9,9 @@ function HowToPlay() {
     }
 
     return (
-      <div className="flex items-center justify-center flex-col">
-        <h1 className="text-4xl mt-20">How to Play?</h1>
-        <ol className="w-1/2 py-10 px-8 text-justify" style={{listStyleType:'decimal'}}>
+      <div className="background py-10 text-center">
+        <h1 className="text-4xl">How to Play?</h1>
+        <ol className="sm:w-1/2 py-10 sm:px-8 list-decimal text-left w-4/6 ml-6 sm:ml-0 sm:text-base text-xs">
           <li className="my-5">Player will be given a set of words in the beginning.</li>
           <li className="my-5">Choose one word from the set of words. (You can choose any words that available from the set of words).</li>
           <li className="my-5">Press and Hold the 'Answer' button and then pronounce the word you've chosen.</li>
@@ -22,8 +22,8 @@ function HowToPlay() {
           <li className="my-5">Be careful in pronouncing the words.</li>
           <h1 className="text-center"> - Good Luck!! - </h1>
         </ol>
-        <div className="flex justify-center flex-row">
-          <button onClick={jumpToMain} className="outline-yellow rounded-lg py-5 px-5 mx-10" style={{width: '250px'}}>Back</button>
+        <div className="flex justify-center">
+          <button onClick={jumpToMain} className="button">Back</button>
         </div>
       </div>
     )

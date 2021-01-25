@@ -12,12 +12,12 @@ class Word {
 
   move() {
     this.x += this.xSpeed;
-    if (this.x < 30 || this.x > this.width / 2 - 100) {
+    if (this.x < 30 || this.x > this.width / 1.5 - 100) {
       this.xSpeed *= -1;
     }
 
     this.y += this.ySpeed;
-    if (this.y < 30 || this.y > this.height / 2 - 100) {
+    if (this.y < 30 || this.y > this.height / 1.5 - 100) {
       this.ySpeed *= -1;
     }
   }
@@ -26,7 +26,7 @@ class Word {
     p5.textSize((3/100) * this.height);
     p5.fill('white')
     p5.text(this.text, this.x, this.y);
-    p5.image(this.image, this.x, this.y, 100, 100)
+    p5.image(this.image, this.x, this.y, (10/100) * this.height, (10/100) * this.height)
   }
 }
 

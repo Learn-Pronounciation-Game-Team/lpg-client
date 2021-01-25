@@ -20,14 +20,14 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="flex items-center justify-center flex-col">
-      <h1 className="text-8xl mt-24"> L P G </h1>
-      <img className="w-auto h-auto py-6" src={gameLogo} alt="LPG Icon" />
-      <h1 className="text-3xl mb-10">a learning pronunciation game</h1>
-      <div className="flex justify-center flex-row">
-        <button onClick={jumpToHowToPlay} className="outline-yellow rounded-lg py-5 px-5 mx-10" style={{width: '250px'}}>How to Play</button>
-        <button onClick={jumpToPreparationPage} className="outline-yellow rounded-lg py-5 px-5 mx-10" style={{width: '250px'}}>Start</button>
-        <button onClick={jumpToLeaderBoard} className="outline-yellow rounded-lg py-5 px-5 mx-10" style={{width: '250px'}}>Leaderboards</button>
+    <div className="background">
+      <h1 className="sm:text-8xl text-5xl"> L P G </h1>
+      <img className="sm:w-3/12 w-5/12 h-auto py-6" src={gameLogo} alt="LPG Icon" />
+      <h1 className="sm:text-3xl text-center text-1xl mb-10">A Learning Pronunciation Game</h1>
+      <div className="flex justify-center flex-wrap">
+        <button onClick={jumpToHowToPlay} className="order-1 button">How to Play</button>
+        <button onClick={jumpToPreparationPage} className="sm:order-2 button">Start</button>
+        <button onClick={jumpToLeaderBoard} className="order-3 button">Leaderboards</button>
       </div>
     </div>
   )
