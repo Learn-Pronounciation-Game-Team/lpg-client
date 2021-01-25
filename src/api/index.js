@@ -1,9 +1,9 @@
 import url from '../config/url'
 
-const fetchWords = (diff) => {
+const fetchWords = (diff, appear) => {
   let lowercased = diff.toLowerCase()
   const promise = new Promise((res, rej) => {
-    fetch(`${url}/word/${lowercased}?wordmax=3`)
+    fetch(`${url}/word/${lowercased}?wordmax=${appear}`)
       .then(res => res.json())
       .then(data => {
         res(data)
