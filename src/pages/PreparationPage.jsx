@@ -26,7 +26,7 @@ export default function PreparationPage() {
                       <input type="text" name="name" className="border" placeholder="Type your name" onChange={(e) => setName(e.target.value)} value={name}/>
                     </div>
                     <div className="flex justify-center flex-row">
-                        <img className="mx-4" src={btnNext} onClick={jumpToGame} />
+                        {/* <img className="mx-4" src={btnNext} onClick={jumpToGame} /> */}
                         {
                           name === '' || name.trim() === ''
                           ?
