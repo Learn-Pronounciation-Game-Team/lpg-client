@@ -8,7 +8,7 @@ const useFetchWords = () => {
 
   useEffect(() => {
     setLoading(true)
-    fetch(`${url}/word/easy?wordmax=1`)
+    fetch(`${url}/word/easy?wordmax=5`)
       .then(res => res.json())
       .then(data => {
         setData(data)
