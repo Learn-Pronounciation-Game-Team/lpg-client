@@ -27,8 +27,8 @@ function Play() {
 	} 
     
 	function end(){
-    return SpeechRecognition.stopListening()         
-	} 
+    return SpeechRecognition.stopListening()
+	}
     
 	function Hold(){
 		return SpeechRecognition.startListening({continuous: true}) 
@@ -56,7 +56,7 @@ function Play() {
     if (isFinish) {
       console.log('hit API');
       setLoading(true)
-      API.fetchWords(state.diff)
+      API.fetchWords(state.diff, state.appear)
         .then((res) => {
           setWords(res)
           setLoading(false)
@@ -69,9 +69,10 @@ function Play() {
 
   // ? kondisional untuk post ke server
   useEffect(() => {
-    if (score === 1) {
+    if (score === 5) {
       API.postLeaderBoard({name: state.name, score, difficulty: state.diff})
         .then((res) => {
+          end()
           history.replace('/leaderboard')
         })
         .catch((err) => console.log(err))
@@ -109,22 +110,27 @@ function Play() {
     return <div>Loading...</div>
   }
   return (
-    <div className="container text-center mt-5 bg-warning p-3">
-      <ClickNHold 
-        className=" w-1/12"
-				time={1} // Time to keep pressing. Default is 2
-				onStart={start} // Start callback
-				onClickNHold={Hold} //Timeout callback
-				onEnd={end} > 
-        <button className="bg-green-400 px-4 py-3 hover:bg-green-700 border border-black rounded-lg">pres & hold</button>
-			</ClickNHold>
-
-      <p>result: {word}</p>
-      <p>Name : {JSON.stringify(state.name)}</p>
-      <p>Score : {score}</p>
-      
-      <div>
-        <Sketch setup={setup} draw={draw} className="" />
+    <div className="max-h-screen">
+      <div className="h-screen flex items-center justify-center">
+        <div className="bg-containerMain bg-cover p-24 rounded-3xl shadow-2xl">
+          <div className="flex justify-around">
+            <ClickNHold 
+              className=" bg-green-400 px-4 py-3 hover:bg-green-700 border border-black rounded-lg"
+              time={1} // Time to keep pressing. Default is 2
+              onStart={start} // Start callback
+              onClickNHold={Hold} //Timeout callback
+              onEnd={end}
+              >
+              <button>Press & Hold</button>
+            </ClickNHold>
+            <p className=" font-press-start2p">Name : {state.name}</p>
+            <p className=" font-press-start2p">Score : {score}</p>
+          </div>
+          <p className="w-11/12 border font-press-start2p break-words">What you said : {word}</p>
+          <div className="flex justify-center flex-row">
+            <Sketch setup={setup} draw={draw} className="" />
+          </div>
+        </div>
       </div>
     </div>
   );
