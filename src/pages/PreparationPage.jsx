@@ -3,7 +3,6 @@ import { useHistory } from 'react-router-dom'
 
 //Assets
 import gameLogo from '../assets/gameLogo.png'
-import btnNext from '../assets/buttons/btn-next.png'
 
 export default function PreparationPage() {
     const history = useHistory()
@@ -15,32 +14,30 @@ export default function PreparationPage() {
     }
 
     return (
-        <div className="max-h-screen">
-            <div className="h-screen flex items-center justify-center">
-                <div className="bg-containerMain bg-cover p-24 rounded-3xl shadow-2xl">
-                    <img className="mx-4 w-5/12 h-auto" src={gameLogo} />
-                    <div className="text-4xl uppercase mb-8 text-white flex items-center justify-center font-press-start2p" >
-                        Who Are You
-                    </div>
-                    <div className="flex items-center justify-center">
-                      <input type="text" name="name" className="border" placeholder="Type your name" onChange={(e) => setName(e.target.value)} value={name}/>
-                    </div>
-                    <div className="flex justify-center flex-row">
-                        <img className="mx-4" src={btnNext} onClick={jumpToGame} />
-                        {
-                          name === '' || name.trim() === ''
-                          ?
-                          ""
-                          :
-                          <div>
-                            <button type="button" onClick={() => jumpToGame('Easy')}>Easy</button>
-                            <button type="button" onClick={() => jumpToGame('Medium')}>Medium</button>
-                            <button type="button" onClick={() => jumpToGame('Hard')}>Hard</button>
-                          </div>
-                        }
-                    </div>
-                </div>
+      <div className="flex items-center justify-center flex-col">
+        <img className="w-auto h-auto mt-20" src={gameLogo} alt="LPG Icon" />
+        <h1 className="text-6xl mb-5">Who are you?</h1>
+        <div className="flex flex-row items-center justify-center text-center">
+          <form>
+            <input type="text" className="text-center my-5 bg-transparent border-0 border-b-2 border-yellow-200 w-full" placeholder="Type your name here..." /><br/>
+            <label htmlFor="difficulty" className="mt-5">Difficulty</label>
+            {/* <select id="difficulty" className="w-full bg-transparent text-center mt-5">
+              <option value="Easy">Easy</option>
+              <option value="Medium">Medium</option>
+              <option value="Hard">Hard</option>
+            </select> <br/> */}
+            <div className="mt-5">
+              <input type="radio" name="difficulty" id="easy" value="Easy" className="bg-transparent border-yellow-200 mr-4" />
+              <label htmlFor="easy" className="mr-10">Easy</label>
+              <input type="radio" name="difficulty" id="medium" value="Medium" className="bg-transparent border-yellow-200 mr-4" />
+              <label htmlFor="medium" className="mr-10">Medium</label>
+              <input type="radio" name="difficulty" id="hard" value="Hard" className="bg-transparent border-yellow-200 mr-4" />
+              <label htmlFor="hard" className="mr-10">Hard</label>
             </div>
+            <button className="outline-yellow rounded-lg my-10 py-5 px-5 mx-10" style={{width: '250px'}} onClick={() => history.push('/')}>Back</button>
+            <button className="outline-yellow rounded-lg my-10 py-5 px-5 mx-10" style={{width: '250px'}} type="submit">Next</button>
+          </form>
         </div>
+      </div>
     )
 }

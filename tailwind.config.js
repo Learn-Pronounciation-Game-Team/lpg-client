@@ -8,11 +8,16 @@ module.exports = {
        }),
       fontFamily: {
         'press-start2p': ['"Press Start 2P"', 'cursive'],
+      },
+      outline: {
+        yellow: ['2px solid #fde68a']
       }
     },
   },
   variants: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/forms')
+  ],
 }
