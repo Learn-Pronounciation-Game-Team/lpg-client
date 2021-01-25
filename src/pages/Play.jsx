@@ -25,7 +25,7 @@ function Play() {
   const [ score, setScore ] = useState(0)
   const history = useHistory()
   //===================================================
-  const [timeLeft, setTimeLeft] = useState(10);
+  const [timeLeft, setTimeLeft] = useState(state.timer);
   let cSize = 10
   let yPos = 400
   let cTrans = 255
@@ -160,7 +160,7 @@ function Play() {
       // please use normal variables or class properties for these purposes
 
     p5.fill("orange");
-    p5.textSize(30);
+    p5.textSize((3/100) * height);
     
     if (timeLeft === 0) {
       p5.fill(255, 0, 255, cTrans)

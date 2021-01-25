@@ -1,4 +1,4 @@
-import p5 from 'p5'
+// import p5 from 'p5'
 
 class Explode {
   constructor(x, y, xSpeed, ySpeed, text, width, height, animations) {

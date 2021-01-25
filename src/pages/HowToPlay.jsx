@@ -1,10 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 
-//Assets
-import gameLogo from '../assets/gameLogo.png'
-import btnBack from '../assets/buttons/btn-back.png'
-
 function HowToPlay() {
     const history = useHistory()
 
@@ -13,22 +9,21 @@ function HowToPlay() {
     }
 
     return (
-      <div className="max-h-screen">
-        <div className="h-screen flex items-center justify-center">
-          <div className="bg-containerMain bg-cover p-24 rounded-3xl shadow-2xl">
-            <div className="text-4xl uppercase mb-8 text-white flex items-center justify-center font-press-start2p" >
-              <p>How To Play</p>
-            </div>
-            <div className="flex items-center justify-center">
-                <img className="mx-4 w-5/12 h-auto" src={gameLogo} />
-            </div>
-            <div className="text-sm mb-8 text-white flex items-center justify-center font-press-start2p">
-              <p>a learning prononciation game.</p>
-            </div>
-            <div className="flex justify-center flex-row">
-                <img className="mx-4" src={btnBack} onClick={jumpToMain} />
-            </div>
-          </div>
+      <div className="flex items-center justify-center flex-col">
+        <h1 className="text-4xl mt-20">How to Play?</h1>
+        <ol className="w-1/2 py-10 px-8 text-justify" style={{listStyleType:'decimal'}}>
+          <li className="my-5">Player will be given a set of words in the beginning.</li>
+          <li className="my-5">Choose one word from the set of words. (You can choose any words that available from the set of words).</li>
+          <li className="my-5">Press and Hold the 'Answer' button and then pronounce the word you've chosen.</li>
+          <li className="my-5">If your pronunciation is correct, the words will display exploding animations.</li>
+          <li className="my-5">If your pronunciation is incorrect, your health will be decreased as a punishment.</li>
+          <li className="my-5">Repeat the steps until all words have been pronunciated correctly.</li>
+          <li className="my-5">You're gonna lose when the time's up before you've pronounce all the words correctly.</li>
+          <li className="my-5">Be careful in pronouncing the words.</li>
+          <h1 className="text-center"> - Good Luck!! - </h1>
+        </ol>
+        <div className="flex justify-center flex-row">
+          <button onClick={jumpToMain} className="outline-yellow rounded-lg py-5 px-5 mx-10" style={{width: '250px'}}>Back</button>
         </div>
       </div>
     )

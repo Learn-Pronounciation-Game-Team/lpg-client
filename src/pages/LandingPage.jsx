@@ -3,9 +3,6 @@ import { useHistory } from 'react-router-dom'
 
 //Assets
 import gameLogo from '../assets/gameLogo.png'
-import btnHowtoplay from '../assets/buttons/btn-howtoplay.png'
-import btnStartgame from '../assets/buttons/btn-startgame.png'
-import btnLeaderboard from '../assets/buttons/btn-leaderboard.png'
 
 export default function LandingPage() {
   const history = useHistory()
@@ -23,24 +20,14 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="max-h-screen">
-      <div className="h-screen flex items-center justify-center">
-        <div className="bg-containerMain bg-cover p-24 rounded-3xl shadow-2xl">
-          <div className="text-4xl uppercase mb-8 text-white flex items-center justify-center font-press-start2p" >
-            L P G
-          </div>
-          <div className="flex items-center justify-center">
-            <img className="mx-4 w-5/12 h-auto" src={gameLogo}/>
-          </div>
-          <div className="text-sm mb-8 text-white flex items-center justify-center font-press-start2p">
-            a learning prononciation game.
-          </div>
-          <div className="flex justify-center flex-row">
-            <img className="mx-4" src={btnHowtoplay} onClick={jumpToHowToPlay} />
-            <img className="mx-4" src={btnStartgame} onClick={jumpToPreparationPage} />
-            <img className="mx-4" src={btnLeaderboard} onClick={jumpToLeaderBoard} />
-          </div>
-        </div>
+    <div className="flex items-center justify-center flex-col">
+      <h1 className="text-8xl mt-24"> L P G </h1>
+      <img className="w-auto h-auto py-6" src={gameLogo} alt="LPG Icon" />
+      <h1 className="text-3xl mb-10">a learning pronunciation game</h1>
+      <div className="flex justify-center flex-row">
+        <button onClick={jumpToHowToPlay} className="outline-yellow rounded-lg py-5 px-5 mx-10" style={{width: '250px'}}>How to Play</button>
+        <button onClick={jumpToPreparationPage} className="outline-yellow rounded-lg py-5 px-5 mx-10" style={{width: '250px'}}>Start</button>
+        <button onClick={jumpToLeaderBoard} className="outline-yellow rounded-lg py-5 px-5 mx-10" style={{width: '250px'}}>Leaderboards</button>
       </div>
     </div>
   )
