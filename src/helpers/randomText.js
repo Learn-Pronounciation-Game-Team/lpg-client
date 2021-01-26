@@ -17,7 +17,7 @@ class Word {
     }
 
     this.y += this.ySpeed;
-    if (this.y < 30 || this.y > this.height / 1.5 - 100) {
+    if (this.y < 30 || this.y > this.height / 2 - 100) {
       this.ySpeed *= -1;
     }
   }
