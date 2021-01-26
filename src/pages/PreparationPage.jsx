@@ -16,8 +16,8 @@ export default function PreparationPage() {
     }
 
     return (
-      <div className="background">
-        <img className="sm:w-3/12 w-5/12 h-auto py-6" src={gameLogo} alt="LPG Icon" />
+      <div className="background py-10">
+        <img className=" xl:w-3/12 lg:w-6/12 w-6/12 h-auto py-6" src={gameLogo} alt="LPG Icon" />
         <h1 className="sm:text-3xl text-center text-1xl">Who are you?</h1>
         <div className="flex flex-col items-center justify-center text-center w-10/12 sm:w-6/12">
           <input
@@ -28,7 +28,7 @@ export default function PreparationPage() {
             onChange={(e) => setName(e.target.value)}
           />
           <p className="mb-2">Difficulty</p>
-          <div className="flex flex-wrap w-5/6 sm:w-10/12 justify-around mb-2">
+          <div className="flex flex-wrap w-full justify-around mb-2">
             <div>
               <label className="flex items-center" htmlFor="easy">
                 <input type="radio" name="difficulty" id="easy" value="Easy" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Easy'} onChange={(e) => setDiff(e.target.value)}/>

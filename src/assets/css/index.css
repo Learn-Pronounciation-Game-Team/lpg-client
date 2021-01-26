@@ -6,11 +6,11 @@
 
 @layer components {
   .button {
-    @apply outline-yellow rounded-lg py-5 px-5 mx-10 w-60
+    @apply outline-yellow rounded-lg sm:p-5 p-2 sm:mx-10 mx-5 sm:w-48 w-24 break-words my-3 text-xs sm:text-sm
   }
 
   .background {
-    @apply bg-wave-purple-dark bg-purple-light bg-no-repeat bg-bottom w-full flex items-center justify-center flex-col min-h-screen
+    @apply flex items-center justify-center flex-col min-h-screen
   }
 
   .leaderboard-list {
