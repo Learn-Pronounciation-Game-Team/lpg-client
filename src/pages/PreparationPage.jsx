@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useHistory } from 'react-router-dom'
+import { useAuth } from '../context/auth'
 
 //Assets
 import gameLogo from '../assets/gameLogo.png'
@@ -8,10 +9,12 @@ export default function PreparationPage() {
     const history = useHistory()
     const [ name, setName ] = useState("")
     const [ diff, setDiff ] = useState("")
+    const { setAuthTokens } = useAuth()
 
     function jumpToGame() {
       let appear = diff === 'Easy' ? 3 : diff === 'Medium' ? 5 : 7
       let timer = diff === 'Easy' ? 20 : diff === 'Medium' ? 17 : 15
+      setAuthTokens(true)
       history.push('/gameplay', { diff, name, appear, timer })
     }
 
