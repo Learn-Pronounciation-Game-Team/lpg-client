@@ -10,6 +10,7 @@ export default function PreparationPage() {
     const [ diff, setDiff ] = useState("")
 
     function jumpToGame() {
+      //===================== ini aku tambahin biar makin seru aja hoho
       let appear = diff === 'Easy' ? 10 : diff === 'Medium' ? 15 : 17
       let timer = diff === 'Easy' ? 30 : diff === 'Medium' ? 25 : 20
       history.push('/gameplay', { diff, name, appear, timer })

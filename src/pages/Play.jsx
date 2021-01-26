@@ -107,7 +107,7 @@ function Play() {
         history.replace('/leaderboard', { name: state.name, score })
       } else {
         API.postLeaderBoard({name: state.name, score, difficulty: state.diff})
-        .then((res) => {
+        .then(() => {
           end()
           history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff })
         })
@@ -117,10 +117,16 @@ function Play() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [score, timeLeft])
 
+
+
+ //========================== ini eksperimen jal, bagusnya gaada masalah sama soundnya.. minusnya kerender duluan daripada canvasnya.
   const preload = (p5) => {
     effectSound =  p5.loadSound(duar)
   }
-  
+//=========================== klo mau hilangin, pindahin isi ke setup, hapus functionnya, sama hapus preload di <Sketch>
+
+
+
   // ? P5JS
   const setup = (p5, canvasParentRef) => {
       // use parent to render the canvas in this ref
@@ -144,6 +150,7 @@ function Play() {
     // gameSong.play()
 
     if (isExplode === true) {
+      effectSound?.setVolume(0.1) //Volume
       effectSound?.play()
       let frames = explodeJson.frames
       let animations = []
