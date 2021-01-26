@@ -13,8 +13,8 @@ export default function PreparationPage() {
     const { setAuthTokens } = useAuth()
 
     function jumpToGame() {
-      let appear = diff === 'Easy' ? 3 : diff === 'Medium' ? 5 : 7
-      let timer = diff === 'Easy' ? 20 : diff === 'Medium' ? 17 : 15
+      let appear = diff === 'Easy' ? 10 : diff === 'Medium' ? 13 : 15
+      let timer = diff === 'Easy' ? 30 : diff === 'Medium' ? 25 : 20
       setAuthTokens(true)
       history.push('/gameplay', { diff, name, appear, timer, lang })
     }
@@ -33,22 +33,25 @@ export default function PreparationPage() {
           />
           <p className="mb-2">--Difficulty--</p>
           <div className="flex flex-wrap w-full justify-around mb-2">
-            <div>
+            <div className="group">
               <label className="flex items-center" htmlFor="easy">
                 <input type="radio" name="difficulty" id="easy" value="Easy" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Easy'} onChange={(e) => setDiff(e.target.value)}/>
                 Easy
+                <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-100">30 Second and 10 Words</span>
               </label>
             </div>
-            <div>
+            <div className="group">
               <label className="flex items-center" htmlFor="medium">
                 <input type="radio" name="difficulty" id="medium" value="Medium" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Medium'} onChange={(e) => setDiff(e.target.value)}/>
                 Medium
+                <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-100">25 Second and 13 Words</span>
               </label>
             </div>
-            <div>
+            <div className="group">
               <label className="flex items-center" htmlFor="hard">
                 <input type="radio" name="difficulty" id="hard" value="Hard" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Hard'} onChange={(e) => setDiff(e.target.value)}/>
                 Hard
+                <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-100">20 Second and 15 Words</span>
               </label>
             </div>
           </div>

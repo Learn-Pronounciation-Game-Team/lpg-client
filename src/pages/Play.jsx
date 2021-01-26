@@ -32,14 +32,9 @@ function Play() {
   const [ isFinish, setIsFinish ] = useState(false)
   const [ moving, setMoving ] = useState([])
   const [ score, setScore ] = useState(0)
-  const [ speechLang ] = useState(state.lang === 'English' ? 'en-GB' : state.lang === 'French' ? 'fr-FR' : state.lang === 'Italian' ? 'it-IT' : 'es-ES')
+  const [ speechLang ] = useState(state.lang === 'English' ? 'en-US' : state.lang === 'French' ? 'fr-FR' : state.lang === 'Italian' ? 'it-IT' : 'es-ES')
   const history = useHistory()
-  //===================================================
   const [timeLeft, setTimeLeft] = useState(state.timer);
-  let cSize = 10
-  let yPos = 400
-  let cTrans = 255
-  //===================================================
 
   useEffect(() => { //timeleft
     if (!timeLeft) return;
@@ -101,7 +96,7 @@ function Play() {
   
   const getLastIndex = (input) => {
     let arr = input.split(' ')
-    return arr[arr.length - 1]
+    return arr[arr.length - 1] === '' ? '...' : arr[arr.length - 1]
   }
 
   // ? kondisional untuk post ke server
@@ -134,15 +129,14 @@ function Play() {
       bombImage = p5.loadImage(bomb)
       // gameSong = p5.loadSound(rumbleSong)
       effectSound =  p5.loadSound(duar)
-      // p5.createCanvas(width / 2, height / 2).parent(canvasParentRef);
-      p5.createCanvas(width / 1.5, height / 1.5).parent(canvasParentRef);
+      p5.createCanvas(width / 1.5, height / 2).parent(canvasParentRef);
       for(let i = 0; i < words.length; i++) {
         moving[i] = new Word(p5.random(40, (width / 2) - 100), p5.random(40, (height / 2) - 100), p5.random(-3, 3), p5.random(-3, 3), words[i], width, height, p5.loadImage(image));
       }
   };
 
   const windowResized = (p5) => {
-    p5.resizeCanvas(width / 1.5, height / 1.5, false)
+    p5.resizeCanvas(width / 1.5, height / 2)
     for(let i = 0; i < words.length; i++) {
       moving[i] = new Word(p5.random(40, (width / 2) - 100), p5.random(40, (height / 2) - 100), p5.random(-3, 3), p5.random(-3, 3), words[i], width, height, p5.loadImage(image));
     }
@@ -177,7 +171,6 @@ function Play() {
       moving[i].display(p5);
     }
     if (moving.length === 0) {
-      console.log('here');
       p5.noLoop()
       setIsFinish(true)
     }
@@ -187,14 +180,6 @@ function Play() {
 
     p5.fill("orange");
     p5.textSize((3/100) * height);
-    
-    if (timeLeft === 0) {
-      p5.fill(255, 255, 0, cTrans)
-      p5.ellipse(450, yPos, cSize)
-      // yPos -= 10
-      // cSize += 3
-      cTrans -= 3
-    }
 
     if ( timeLeft > 9 ) {
       p5.text("00 : " + timeLeft + " : " + p5.millis().toString().slice(2, 4) , 20, 50)
@@ -207,27 +192,25 @@ function Play() {
     return <Loading />
   }
   return (
-    <div className="background py-1 px-2">
-      <h1 className="sm:text-3xl text-center text-1xl sm:py-3">Good Luck!</h1>
+    <div className="background py-1 px-1">
+      <h1 className="sm:text-3xl text-center text-1xl sm:py-3">Good Luck! Score: {score}</h1>
       <div className="flex w-full justify-center sm:items-end items-center flex-col sm:flex-row landscape:flex-row">
         <Sketch setup={setup} draw={draw} windowResized={windowResized} className=" order-1"/>
         <div className="order-2 flex flex-col justify-around -m-px">
-          <div className="px-5">
+          <div className="px-5 order-1">
             <p className=" text-base text-center">Need to hear the word?</p>
-            <div className="flex flex-wrap justify-center pb-20">
+            <div className="flex flex-wrap justify-center">
               {
-                words.map( word => ( 
-                  <Speechless word={ word } key={ word.id } lang={ speechLang } />
+                words.map( (word, idx) => ( 
+                  <Speechless word={ word } key={ idx } lang={ speechLang } />
                 ))
               }
             </div>
           </div>
-          <p className="leaderboard-list order-1">{state.name} said:</p>
-          <p className="leaderboard-list order-2">{getLastIndex(word)}</p>
-          <p className="leaderboard-list sm:order-3">Score: {score}</p>
+          <p className=" mt-3 leaderboard-list order-1 text-xs">{state.name} said: {getLastIndex(word)}</p>
           <div className="mt-3 sm:order-4 text-center">
             <ClickNHold
-              className="button"
+              className="button p-2"
               time={1} // Time to keep pressing. Default is 2
               onStart={start} // Start callback
               onClickNHold={Hold} //Timeout callback
