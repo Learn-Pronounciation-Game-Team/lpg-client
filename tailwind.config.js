@@ -19,7 +19,12 @@ module.exports = {
       screens: {
         'landscape': {'raw': '(orientation: landscape)'},
         // => @media (orientation: portrait) { ... }
-      }
+      },
+      minWidth: theme => ({
+        ...theme('width'),
+        '24': '6rem',
+        '48': '12rem',
+       })
     },
   },
   variants: {

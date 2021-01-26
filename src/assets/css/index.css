@@ -6,7 +6,7 @@
 
 @layer components {
   .button {
-    @apply outline-yellow rounded-lg sm:p-5 p-2 sm:mx-10 mx-5 sm:w-48 w-24 break-words my-3 text-xs sm:text-sm
+    @apply outline-yellow rounded-lg sm:p-5 p-2 sm:mx-10 mx-5 sm:min-w-48 min-w-24 break-words my-3 text-xs sm:text-sm
   }
 
   .background {

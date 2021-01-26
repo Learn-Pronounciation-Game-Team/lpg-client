@@ -10,8 +10,14 @@ import PrivateRoute from './pages/PrivateRoute'
 import { AuthContext } from './context/auth'
 
 function App() {
+  const [authTokens, setAuthTokens] = useState(false);
+  
+  const setTokens = (data) => {
+    setAuthTokens(data);
+  }
+
   return (
-    <AuthContext.Provider value={false}>
+    <AuthContext.Provider value={{ authTokens, setAuthTokens: setTokens }}>
       <Router>
         <Switch>
           <Route exact path="/">

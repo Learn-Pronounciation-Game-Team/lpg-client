@@ -11,9 +11,11 @@ import API from '../api'
 import Explode from '../helpers/exploded/explode'
 import bomb from '../assets/Effect_more_red.png'
 import explodeJson from '../helpers/exploded/explode.json'
+import { useAuth } from '../context/auth'
 let bombImage
 
 function Play() {
+  const { setAuthTokens } = useAuth()
   const { state } = useLocation();
   const [ loading, setLoading ] = useState()
   const [ isExplode, setExplode ] = useState(false)
@@ -100,10 +102,12 @@ function Play() {
       end()
       if (score === 0) {
         history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff })
+        setAuthTokens(false)
       } else {
         API.postLeaderBoard({name: state.name, score, difficulty: state.diff})
         .then((res) => {
           history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff })
+          setAuthTokens(false)
         })
         .catch((err) => console.log(err))
       }
@@ -126,6 +130,9 @@ function Play() {
 
   const windowResized = (p5) => {
     p5.resizeCanvas(width / 1.5, height / 1.5, false)
+    for(let i = 0; i < words.length; i++) {
+      moving[i] = new Word(p5.random(40, (width / 2) - 100), p5.random(40, (height / 2) - 100), p5.random(-3, 3), p5.random(-3, 3), words[i], width, height, p5.loadImage(image));
+    }
   }
 
   const draw = (p5) => {
