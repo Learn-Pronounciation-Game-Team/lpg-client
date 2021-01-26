@@ -1,16 +1,17 @@
-import React from "react"
+import React, { useState } from "react"
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
-
 //Pages
 import Play from './pages/Play'
 import LandingPage from './pages/LandingPage'
 import HowToPlay from './pages/HowToPlay'
 import LeaderBoard from './pages/LeaderBoard'
 import PreparationPage from './pages/PreparationPage'
+import PrivateRoute from './pages/PrivateRoute'
+import { AuthContext } from './context/auth'
 
 function App() {
   return (
-    <div>
+    <AuthContext.Provider value={false}>
       <Router>
         <Switch>
           <Route exact path="/">
@@ -22,15 +23,16 @@ function App() {
           <Route path="/leaderboard">
             <LeaderBoard />
           </Route>
-          <Route path="/gameplay">
+          <PrivateRoute path="/gameplay" component={Play} />
+          {/* <Route path="/gameplay">
             <Play />
-          </Route>
+          </Route> */}
           <Route path="/preparation">
             <PreparationPage />
           </Route>
         </Switch>
       </Router>
-    </div>
+    </AuthContext.Provider>
   );
 }
 

@@ -97,13 +97,12 @@ function Play() {
   // ? kondisional untuk post ke server
   useEffect(() => {
     if (timeLeft === 0) {
+      end()
       if (score === 0) {
-        end()
-        history.replace('/leaderboard', { name: state.name, score })
+        history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff })
       } else {
         API.postLeaderBoard({name: state.name, score, difficulty: state.diff})
         .then((res) => {
-          end()
           history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff })
         })
         .catch((err) => console.log(err))
