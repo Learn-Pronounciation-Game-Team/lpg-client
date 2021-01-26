@@ -11,11 +11,11 @@ import API from '../api'
 import Explode from '../helpers/exploded/explode'
 import bomb from '../assets/Effect_more_red.png'
 import explodeJson from '../helpers/exploded/explode.json'
-import rumbleSong from '../assets/bensound-rumble.mp3'
+// import rumbleSong from '../assets/bensound-rumble.mp3'
 import duar from '../assets/duar.mp3'
 import 'p5/lib/addons/p5.sound'
 let bombImage
-let gameSong
+// let gameSong
 let effectSound
 
 function Play() {
@@ -117,17 +117,17 @@ function Play() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [score, timeLeft])
 
-  // const preload = (p5) => {
-    
-  // }
+  const preload = (p5) => {
+    effectSound =  p5.loadSound(duar)
+  }
   
   // ? P5JS
   const setup = (p5, canvasParentRef) => {
       // use parent to render the canvas in this ref
       // (without that p5 will render the canvas outside of your component)
       bombImage = p5.loadImage(bomb)
-      gameSong = p5.loadSound(rumbleSong)
-      effectSound =  p5.loadSound(duar)
+      // gameSong = p5.loadSound(rumbleSong)
+      // effectSound =  p5.loadSound(duar)
       // p5.createCanvas(width / 2, height / 2).parent(canvasParentRef);
       p5.createCanvas(width / 1.5, height / 1.5).parent(canvasParentRef);
       for(let i = 0; i < words.length; i++) {
@@ -144,7 +144,7 @@ function Play() {
     // gameSong.play()
 
     if (isExplode === true) {
-      effectSound.play()
+      effectSound?.play()
       let frames = explodeJson.frames
       let animations = []
       for (let i = 0; i < frames.length; i++) {
@@ -201,7 +201,7 @@ function Play() {
     <div className="background py-1">
       <h1 className="sm:text-3xl text-center text-1xl sm:py-3">Good Luck!</h1>
       <div className="flex w-full justify-center sm:items-end items-center flex-col sm:flex-row landscape:flex-row">
-        <Sketch setup={setup} draw={draw} windowResized={windowResized} className=" order-1"/>
+        <Sketch preload={preload} setup={setup} draw={draw} windowResized={windowResized} className=" order-1"/>
         <div className="order-2 flex flex-col justify-around -m-px">
           <p className="leaderboard-list order-1">{state.name} said:</p>
           <p className="leaderboard-list order-2">{getLastIndex(word)}</p>
