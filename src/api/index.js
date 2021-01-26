@@ -1,9 +1,10 @@
 import url from '../config/url'
 
-const fetchWords = (diff, appear) => {
+const fetchWords = (diff, appear, lang) => {
   let lowercased = diff.toLowerCase()
+  const param = lang === 'English' ? 'word' : lang === 'French' ? 'mot' : lang === 'Italian' ? 'parola' : 'palabra'
   const promise = new Promise((res, rej) => {
-    fetch(`${url}/word/${lowercased}?wordmax=${appear}`)
+    fetch(`${url}/${param}/${lowercased}?wordmax=${appear}`)
       .then(res => res.json())
       .then(data => {
         res(data)

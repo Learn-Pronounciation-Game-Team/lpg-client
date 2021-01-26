@@ -1,15 +1,20 @@
-// import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSpeechSynthesis } from 'react-speech-kit';
 
-function Speechless (props) {
-  const { word } = props
+function Speechless ({ word, lang }) {
   const { speak, voices  } = useSpeechSynthesis();
+  const [ language, setLanguage ] = useState(4)
+
+  useEffect(() => {
+    const code = lang === 'en-GB' ? 4 : lang === 'fr-FR' ? 8 : lang === 'it-IT' ? 11 : 6
+    setLanguage(code)
+  },[lang])
  
   return (
     <div>
-        <p>=============={voices.length}</p>
-      <button 
-        onClick={() => speak({ text: word , voice: voices[4] })} >{word} 
+      <button
+        className="text-xs px-1"
+        onClick={() => speak({ text: word , voice: voices[language] })} >{word} 
       </button>
     </div>
   );

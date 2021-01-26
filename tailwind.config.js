@@ -16,6 +16,15 @@ module.exports = {
         ...theme('colors'),
         'purple-light': '#48426D'
       }),
+      screens: {
+        'landscape': {'raw': '(orientation: landscape)'},
+        // => @media (orientation: portrait) { ... }
+      },
+      minWidth: theme => ({
+        ...theme('width'),
+        '24': '6rem',
+        '48': '12rem',
+       })
     },
   },
   variants: {

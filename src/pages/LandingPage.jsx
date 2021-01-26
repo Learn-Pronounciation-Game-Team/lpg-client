@@ -20,9 +20,9 @@ export default function LandingPage() {
   }
 
   return (
-    <div className="background">
+    <div className="background py-10">
       <h1 className="sm:text-8xl text-5xl"> L P G </h1>
-      <img className="sm:w-3/12 w-5/12 h-auto py-6" src={gameLogo} alt="LPG Icon" />
+      <img className=" xl:w-3/12 lg:w-6/12 w-6/12 h-auto py-6" src={gameLogo} alt="LPG Icon" />
       <h1 className="sm:text-3xl text-center text-1xl mb-10">A Learning Pronunciation Game</h1>
       <div className="flex justify-center flex-wrap">
         <button onClick={jumpToHowToPlay} className="order-1 button">How to Play</button>
