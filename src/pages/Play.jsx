@@ -10,13 +10,16 @@ import API from '../api'
 import Explode from '../helpers/exploded/explode'
 import bomb from '../assets/Effect_more_red.png'
 import explodeJson from '../helpers/exploded/explode.json'
-let bombImage
+// ===================================== ini nih
+import Speechless from '../components/testSpech' 
+// ===================================== itu nih
+let bombImage;
 
 function Play() {
   const { state } = useLocation();
   const [ loading, setLoading ] = useState()
   const [ isExplode, setExplode ] = useState(false)
-  const [ word, setWord ] = useState("says now")
+  const [ word, setWord ] = useState("")
   const [ words, setWords ] = useState([])
   const { transcript } = useSpeechRecognition()
   const { height, width } = useWindowDimensions();
@@ -35,13 +38,13 @@ function Play() {
     if (!timeLeft) return;
     const intervalId = setInterval(() => {
       setTimeLeft(timeLeft - 1);
-    }, 1000);
+    }, 10000);
     return () => clearInterval(intervalId);
   }, [timeLeft]);
 
   // ? Speech Recognition
   function start(){
-    return SpeechRecognition.startListening({ language: 'en-US' })
+    return SpeechRecognition.startListening({ language: 'en-GB' })
 	} 
     
 	function end(){
@@ -53,10 +56,11 @@ function Play() {
   }
 
   // ? memfilter kata2
+
   useEffect(()=> {
     if (words) {
       setWord(transcript.toLocaleLowerCase())
-      let inputs = word.split(' ')
+      let inputs = word.split(' ') // dari mic
       if (words.includes(inputs[inputs.length - 1])) {
         setExplode(true)
         setTimeout(() => {
@@ -188,6 +192,11 @@ function Play() {
   return (
     <div className="background py-2">
       <h1 className="sm:text-3xl text-center text-1xl py-3">Good Luck!</h1>
+      {
+        words.map( word => ( 
+          <Speechless word={ word } key={ word.id } />
+        ))
+      }
       <div className="flex w-full justify-center sm:items-end items-center flex-col sm:flex-row">
         <Sketch setup={setup} draw={draw} windowResized={windowResized} className=" order-1"/>
         <div className="order-2 flex flex-col justify-around">
