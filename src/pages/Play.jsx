@@ -12,7 +12,12 @@ import Explode from '../helpers/exploded/explode'
 import bomb from '../assets/Effect_more_red.png'
 import explodeJson from '../helpers/exploded/explode.json'
 import { useAuth } from '../context/auth'
+import rumbleSong from '../assets/bensound-rumble.mp3'
+import duar from '../assets/duar.mp3'
+import 'p5/lib/addons/p5.sound'
 let bombImage
+let gameSong
+let effectSound
 
 function Play() {
   const { setAuthTokens } = useAuth()
@@ -114,13 +119,18 @@ function Play() {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [score, timeLeft])
+
+  // const preload = (p5) => {
+    
+  // }
   
   // ? P5JS
   const setup = (p5, canvasParentRef) => {
       // use parent to render the canvas in this ref
       // (without that p5 will render the canvas outside of your component)
       bombImage = p5.loadImage(bomb)
-  
+      gameSong = p5.loadSound(rumbleSong)
+      effectSound =  p5.loadSound(duar)
       // p5.createCanvas(width / 2, height / 2).parent(canvasParentRef);
       p5.createCanvas(width / 1.5, height / 1.5).parent(canvasParentRef);
       for(let i = 0; i < words.length; i++) {
@@ -137,8 +147,10 @@ function Play() {
 
   const draw = (p5) => {
     p5.background('#48426D');
+    // gameSong.play()
 
     if (isExplode === true) {
+      effectSound.play()
       let frames = explodeJson.frames
       let animations = []
       for (let i = 0; i < frames.length; i++) {
@@ -147,7 +159,6 @@ function Play() {
         let img = bombImage.get(pos.x, pos.y, pos.w, pos.h)
         animations.push(img)
       }
-
       let inputs = word.split(' ')
       setMoving(moving.map(e => {
         if (e.text === inputs[inputs.length - 1]){
