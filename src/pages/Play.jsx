@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
+import Loading from '../components/Loading'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import ClickNHold from 'react-click-n-hold';
 import useWindowDimensions from '../helpers/getCurrentWindow'
@@ -65,7 +66,7 @@ function Play() {
           setExplode(false)
           setWords(filtered)
           setMoving(filteredMoving)
-          setScore(score + 1)
+          setScore(score + 10)
         }, 200);
       }
       // console.log('hit use Effect')
@@ -98,12 +99,12 @@ function Play() {
     if (timeLeft === 0) {
       if (score === 0) {
         end()
-        history.replace('/leaderboard')
+        history.replace('/leaderboard', { name: state.name, score })
       } else {
         API.postLeaderBoard({name: state.name, score, difficulty: state.diff})
         .then((res) => {
           end()
-          history.replace('/leaderboard')
+          history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff })
         })
         .catch((err) => console.log(err))
       }
@@ -125,7 +126,7 @@ function Play() {
   };
 
   const windowResized = (p5) => {
-    p5.resizeCanvas(width / 1.5, height / 1.5)
+    p5.resizeCanvas(width / 1.5, height / 1.5, false)
   }
 
   const draw = (p5) => {
@@ -168,33 +169,33 @@ function Play() {
     p5.textSize((3/100) * height);
     
     if (timeLeft === 0) {
-      p5.fill(255, 0, 255, cTrans)
+      p5.fill(255, 255, 0, cTrans)
       p5.ellipse(450, yPos, cSize)
-      yPos -= 10
-      cSize += 3
+      // yPos -= 10
+      // cSize += 3
       cTrans -= 3
     }
 
     if ( timeLeft > 9 ) {
-      p5.text("00 : " + timeLeft + " : " + p5.millis().toString().slice(2, 4) , p5.width/2.35, p5.height/20)
+      p5.text("00 : " + timeLeft + " : " + p5.millis().toString().slice(2, 4) , 20, 50)
     } else if ( timeLeft < 10 ) {
-      p5.text("00 : 0" + timeLeft + " : " + p5.millis().toString().slice(2, 4) , p5.width/2.35, p5.height/20)
+      p5.text("00 : 0" + timeLeft + " : " + p5.millis().toString().slice(2, 4) , 20, 50)
     }
   };
 
   if (loading) {
-    return <div>Loading...</div>
+    return <Loading />
   }
   return (
-    <div className="background py-2">
-      <h1 className="sm:text-3xl text-center text-1xl py-3">Good Luck!</h1>
-      <div className="flex w-full justify-center sm:items-end items-center flex-col sm:flex-row">
+    <div className="background py-1">
+      <h1 className="sm:text-3xl text-center text-1xl sm:py-3">Good Luck!</h1>
+      <div className="flex w-full justify-center sm:items-end items-center flex-col sm:flex-row landscape:flex-row">
         <Sketch setup={setup} draw={draw} windowResized={windowResized} className=" order-1"/>
-        <div className="order-2 flex flex-col justify-around">
-          <p className="leaderboard-list">You said: {getLastIndex(word)}</p>
-          <p className="leaderboard-list">{state.name}</p>
-          <p className="leaderboard-list">Score: {score}</p>
-          <div className="mt-3">
+        <div className="order-2 flex flex-col justify-around -m-px">
+          <p className="leaderboard-list order-1">{state.name} said:</p>
+          <p className="leaderboard-list order-2">{getLastIndex(word)}</p>
+          <p className="leaderboard-list sm:order-3">Score: {score}</p>
+          <div className="mt-3 sm:order-4">
             <ClickNHold
               className="button"
               time={1} // Time to keep pressing. Default is 2
