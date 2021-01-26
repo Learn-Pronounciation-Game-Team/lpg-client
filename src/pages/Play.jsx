@@ -12,11 +12,11 @@ import Explode from '../helpers/exploded/explode'
 import bomb from '../assets/Effect_more_red.png'
 import explodeJson from '../helpers/exploded/explode.json'
 import { useAuth } from '../context/auth'
-import rumbleSong from '../assets/bensound-rumble.mp3'
+// import rumbleSong from '../assets/bensound-rumble.mp3'
 import duar from '../assets/duar.mp3'
 import 'p5/lib/addons/p5.sound'
 let bombImage
-let gameSong
+// let gameSong
 let effectSound
 
 function Play() {
@@ -31,6 +31,7 @@ function Play() {
   const [ isFinish, setIsFinish ] = useState(false)
   const [ moving, setMoving ] = useState([])
   const [ score, setScore ] = useState(0)
+  const [ speechLang ] = useState(state.lang === 'English' ? 'en-US' : state.lang === 'French' ? 'fr-FR' : state.lang === 'Italian' ? 'it-IT' : 'es-ES')
   const history = useHistory()
   //===================================================
   const [timeLeft, setTimeLeft] = useState(state.timer);
@@ -49,7 +50,7 @@ function Play() {
 
   // ? Speech Recognition
   function start(){
-    return SpeechRecognition.startListening({ language: 'en-US' })
+    return SpeechRecognition.startListening({ language: speechLang })
 	} 
     
 	function end(){
@@ -86,7 +87,7 @@ function Play() {
     if (isFinish === true) {
       console.log('hit API');
       setLoading(true)
-      API.fetchWords(state.diff, state.appear)
+      API.fetchWords(state.diff, state.appear, state.lang)
         .then((res) => {
           setWords(res)
           setLoading(false)
@@ -106,12 +107,12 @@ function Play() {
     if (timeLeft === 0) {
       end()
       if (score === 0) {
-        history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff })
+        history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff, language: state.lang })
         setAuthTokens(false)
       } else {
-        API.postLeaderBoard({name: state.name, score, difficulty: state.diff})
+        API.postLeaderBoard({name: state.name, score, difficulty: state.diff, language: state.lang})
         .then((res) => {
-          history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff })
+          history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff, language: state.lang })
           setAuthTokens(false)
         })
         .catch((err) => console.log(err))
@@ -129,7 +130,7 @@ function Play() {
       // use parent to render the canvas in this ref
       // (without that p5 will render the canvas outside of your component)
       bombImage = p5.loadImage(bomb)
-      gameSong = p5.loadSound(rumbleSong)
+      // gameSong = p5.loadSound(rumbleSong)
       effectSound =  p5.loadSound(duar)
       // p5.createCanvas(width / 2, height / 2).parent(canvasParentRef);
       p5.createCanvas(width / 1.5, height / 1.5).parent(canvasParentRef);

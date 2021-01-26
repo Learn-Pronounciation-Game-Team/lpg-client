@@ -5,17 +5,20 @@ import LeaderboardList from '../components/LeaderboardList'
 import Loading from '../components/Loading'
 
 function LeaderBoard() {
-    const [ easyLeaderboard, setEasyLeaderboard ] = useState([])
-    const [ mediumLeaderboard, setMediumLeaderboard ] = useState([])
-    const [ hardLeaderboard, setHardLeaderboard ] = useState([])
+    const [ englishLeaderboard, setEnglishLeaderboard ] = useState([])
+    const [ frenchLeaderboard, setFrenchLeaderboard ] = useState([])
+    const [ spanishLeaderboard, setSpanishLeaderboard ] = useState([])
+    const [ italianLeaderboard, setItalianLeaderboard ] = useState([])
     const [ loading, setLoading ] = useState()
-    const [ showing, setShowing ] = useState('Easy')
+    const [ showing, setShowing ] = useState('English')
+    const [ diff, setDiff ] = useState('Easy')
     const history = useHistory()
     const { state } = useLocation()
 
     useEffect(() => {
       if (state) {
-        setShowing(state.difficulty)
+        setShowing(state.language)
+        setDiff(state.difficulty)
       }
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
@@ -25,12 +28,14 @@ function LeaderBoard() {
       API.fetchLeaderBoard()
         .then((res) => {
           const sorted = res.leaderboard.sort((a, b) => b.score - a.score)
-          const toEasy = sorted.filter(board => board.difficulty === 'Easy')
-          const toMedium = sorted.filter(board => board.difficulty === 'Medium')
-          const toHard = sorted.filter(board => board.difficulty === 'Hard')
-          setEasyLeaderboard(toEasy)
-          setMediumLeaderboard(toMedium)
-          setHardLeaderboard(toHard)
+          const toEnglish = sorted.filter(board => board.language === 'English' || !board.language)
+          const toFrench = sorted.filter(board => board.language === 'French')
+          const toSpanish = sorted.filter(board => board.language === 'Spanish')
+          const toItalian = sorted.filter(board => board.language === 'Italian')
+          setEnglishLeaderboard(toEnglish)
+          setFrenchLeaderboard(toFrench)
+          setSpanishLeaderboard(toSpanish)
+          setItalianLeaderboard(toItalian)
           setLoading(false)
         })
     }, [])
@@ -51,27 +56,32 @@ function LeaderBoard() {
                 ?
                 <p className="text-center">Sorry {state.name}, you're cannot enlisted into leaderboard</p>
                 :
-                <p className="text-center">Congratulations {state.name} clearing {state.difficulty} difficulty! Your score is {state.score}!</p>
+                <p className="text-center">Congratulations {state.name} clearing {state.difficulty} difficulty in {state.language} Language! Your score is {state.score}!</p>
               }
             </div>
             :
             ''
           }
-          <div className="flex justify-around w-full sm:w-10/12">
-            <button className="sm:text-2xl text-lg text-center my-3 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'Easy' ? true : false} onClick={() => setShowing('Easy')}>Easy</button>
-            <button className="sm:text-2xl text-lg text-center my-3 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'Medium' ? true : false} onClick={() => setShowing('Medium')}>Medium</button>
-            <button className="sm:text-2xl text-lg text-center my-3 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'Hard' ? true : false} onClick={() => setShowing('Hard')}>Hard</button>
+          <div className="flex justify-around w-full sm:w-10/12 flex-wrap">
+            <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'English' ? true : false} onClick={() => setShowing('English')}>English</button>
+            <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'French' ? true : false} onClick={() => setShowing('French')}>French</button>
+            <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'Spanish' ? true : false} onClick={() => setShowing('Spanish')}>Spanish</button>
+            <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'Italian' ? true : false} onClick={() => setShowing('Italian')}>Italian</button>
           </div>
           {
-            showing === 'Easy'
+            showing === 'English'
             ?
-            <LeaderboardList data={easyLeaderboard} diff="Easy" />
+            <LeaderboardList data={englishLeaderboard} diff={diff}/>
             :
-            showing === 'Medium'
+            showing === 'French'
             ?
-            <LeaderboardList data={mediumLeaderboard} diff="Medium" />
+            <LeaderboardList data={frenchLeaderboard}  diff={diff}/>
             :
-            <LeaderboardList data={hardLeaderboard} diff="Hard" />
+            showing === 'Italian'
+            ?
+            <LeaderboardList data={italianLeaderboard}  diff={diff}/>
+            :
+            <LeaderboardList data={spanishLeaderboard} diff={diff}/>
           }
           <button onClick={() => history.push('/')} className="button mt-3">Back</button>
         </div>
