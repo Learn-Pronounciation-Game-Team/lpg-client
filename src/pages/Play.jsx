@@ -11,27 +11,28 @@ import API from '../api'
 import Explode from '../helpers/exploded/explode'
 import bomb from '../assets/Effect_more_red.png'
 import explodeJson from '../helpers/exploded/explode.json'
+import Speechless from '../components/testSpech' 
 import { useAuth } from '../context/auth'
-// import rumbleSong from '../assets/bensound-rumble.mp3'
 import duar from '../assets/duar.mp3'
 import 'p5/lib/addons/p5.sound'
 let bombImage
-// let gameSong
 let effectSound
+// import rumbleSong from '../assets/bensound-rumble.mp3'
+// let gameSong
 
 function Play() {
   const { setAuthTokens } = useAuth()
   const { state } = useLocation();
   const [ loading, setLoading ] = useState()
   const [ isExplode, setExplode ] = useState(false)
-  const [ word, setWord ] = useState("says now")
+  const [ word, setWord ] = useState("")
   const [ words, setWords ] = useState([])
   const { transcript } = useSpeechRecognition()
   const { height, width } = useWindowDimensions();
   const [ isFinish, setIsFinish ] = useState(false)
   const [ moving, setMoving ] = useState([])
   const [ score, setScore ] = useState(0)
-  const [ speechLang ] = useState(state.lang === 'English' ? 'en-US' : state.lang === 'French' ? 'fr-FR' : state.lang === 'Italian' ? 'it-IT' : 'es-ES')
+  const [ speechLang ] = useState(state.lang === 'English' ? 'en-GB' : state.lang === 'French' ? 'fr-FR' : state.lang === 'Italian' ? 'it-IT' : 'es-ES')
   const history = useHistory()
   //===================================================
   const [timeLeft, setTimeLeft] = useState(state.timer);
@@ -62,10 +63,11 @@ function Play() {
   }
 
   // ? memfilter kata2
+
   useEffect(()=> {
     if (words) {
       setWord(transcript.toLocaleLowerCase())
-      let inputs = word.split(' ')
+      let inputs = word.split(' ') // dari mic
       if (words.includes(inputs[inputs.length - 1])) {
         setExplode(true)
         setTimeout(() => {
@@ -205,15 +207,25 @@ function Play() {
     return <Loading />
   }
   return (
-    <div className="background py-1">
+    <div className="background py-1 px-2">
       <h1 className="sm:text-3xl text-center text-1xl sm:py-3">Good Luck!</h1>
       <div className="flex w-full justify-center sm:items-end items-center flex-col sm:flex-row landscape:flex-row">
         <Sketch setup={setup} draw={draw} windowResized={windowResized} className=" order-1"/>
         <div className="order-2 flex flex-col justify-around -m-px">
+          <div className="px-5">
+            <p className=" text-base text-center">Need to hear the word?</p>
+            <div className="flex flex-wrap justify-center pb-20">
+              {
+                words.map( word => ( 
+                  <Speechless word={ word } key={ word.id } lang={ speechLang } />
+                ))
+              }
+            </div>
+          </div>
           <p className="leaderboard-list order-1">{state.name} said:</p>
           <p className="leaderboard-list order-2">{getLastIndex(word)}</p>
           <p className="leaderboard-list sm:order-3">Score: {score}</p>
-          <div className="mt-3 sm:order-4">
+          <div className="mt-3 sm:order-4 text-center">
             <ClickNHold
               className="button"
               time={1} // Time to keep pressing. Default is 2
