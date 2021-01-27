@@ -21,11 +21,11 @@ export default function PreparationPage() {
     const { setAuthTokens } = useAuth()
 
     useEffect(() => {
-      if (state.game) {
+      if (state) {
         playOpening()
       }
       return () => stop()
-    }, [state.game, playOpening, stop])
+    }, [state, playOpening, stop])
 
     function jumpToGame() {
       let appear = diff === 'Easy' ? 10 : diff === 'Medium' ? 13 : 15

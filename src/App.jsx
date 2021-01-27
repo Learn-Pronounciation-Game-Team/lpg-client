@@ -7,7 +7,9 @@ import HowToPlay from './pages/HowToPlay'
 import LeaderBoard from './pages/LeaderBoard'
 import PreparationPage from './pages/PreparationPage'
 import PrivateRoute from './pages/PrivateRoute'
+import ResultPage from './pages/ResultPage'
 import { AuthContext } from './context/auth'
+
 
 function App() {
   const [authTokens, setAuthTokens] = useState(false);
@@ -30,12 +32,13 @@ function App() {
             <LeaderBoard />
           </Route>
           <PrivateRoute path="/gameplay" component={Play} />
-          {/* <Route path="/gameplay">
-            <Play />
-          </Route> */}
+          <PrivateRoute path="/result" component={ResultPage} />
           <Route path="/preparation">
             <PreparationPage />
           </Route>
+          {/* <Route path="/result">
+            <ResultPage />
+          </Route> */}
         </Switch>
       </Router>
     </AuthContext.Provider>
