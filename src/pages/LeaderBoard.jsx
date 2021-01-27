@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import API from '../api/index'
 import LeaderboardList from '../components/LeaderboardList'
+import clickSound from '../assets/clickSound.mp3'
+import useSound from 'use-sound'
 import Loading from '../components/Loading'
 
 function LeaderBoard() {
@@ -14,6 +16,8 @@ function LeaderBoard() {
     const [ diff, setDiff ] = useState('Easy')
     const history = useHistory()
     const { state } = useLocation()
+    const [playClick] = useSound(clickSound, {volume: 0.15})
+
 
     useEffect(() => {
       if (state) {
@@ -38,12 +42,15 @@ function LeaderBoard() {
           setItalianLeaderboard(toItalian)
           setLoading(false)
         })
+        .catch((err) => {
+          console.log('Internal server error');
+        })
     }, [])
 
-    // return <Loading />
     if (loading) {
       return <Loading />
-    }
+    } 
+
     return (
         <div className="background py-10 justify-start">
           <h1 className="sm:text-4xl text-2xl text-center mb-3">Leaderboard</h1>
@@ -54,9 +61,9 @@ function LeaderBoard() {
               {
                 state.score === 0
                 ?
-                <p className="text-center">Sorry {state.name}, you're cannot enlisted into leaderboard</p>
+                <p className="text-center container">Sorry {state.name}, you're cannot enlisted into leaderboard</p>
                 :
-                <p className="text-center">Congratulations {state.name} clearing {state.difficulty} difficulty in {state.language} Language! Your score is {state.score}!</p>
+                <p className="text-center container">Congratulations {state.name} clearing {state.difficulty} difficulty in {state.language} Language! Your score is {state.score}!</p>
               }
             </div>
             :
@@ -83,7 +90,9 @@ function LeaderBoard() {
             :
             <LeaderboardList data={spanishLeaderboard} diff={diff}/>
           }
-          <button onClick={() => history.push('/')} className="button mt-3">Back</button>
+          <button onClick={() => {
+            playClick()
+            history.push('/')}} className="button mt-3">Back</button>
         </div>
     )
 }
