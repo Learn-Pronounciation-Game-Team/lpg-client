@@ -46,13 +46,13 @@ export default function ResultPage() {
     <div className="background py-10">
       <h3 className="sm:text-3xl text-center text-1xl mb-10">{state.score === 0 ? 'SORRY YOU FAILED, HAHAHA!' : 'CONGRATULATIONS!'}</h3>
       <img className=" xl:w-2/12 lg:w-3/12 w-4/12 h-auto py-5" src={state.score === 0 ? laugh : sad} alt="LPG Icon" />
-      <h5 className="sm:text-3xl text-center text-1xl mb-10">{
-                state.score === 0
-                ?
-                `Sorry ${state.name}, you're cannot enlisted into leaderboard`
-                :
-                `Congratulations ${state.name} clearing ${state.difficulty} difficulty in ${state.language} Language! Your score is ${state.score}!`
-              }</h5>
+      <h5 className="sm:text-3xl text-center text-1xl mb-10 px-3">{
+        state.score === 0
+        ?
+        `Sorry ${state.name}, you're cannot enlisted into leaderboard`
+        :
+        `Congratulations ${state.name} clearing ${state.difficulty} difficulty in ${state.language} Language! Your score is ${state.score}!`
+      }</h5>
       <div className="flex justify-center flex-wrap">
         <button onClick={jumpToHome} className="order-1 button">Back</button>
         <button onClick={jumpToLeaderBoard} className="order-3 button">Leaderboards</button>
