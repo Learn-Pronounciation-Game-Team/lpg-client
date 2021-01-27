@@ -31,7 +31,7 @@ export default function ResultPage() {
     setTimeout(() => {
       history.replace('/')
       setAuthTokens(false)
-    }, 200);
+    }, 350);
   }
 
   function jumpToLeaderBoard() {
@@ -39,7 +39,7 @@ export default function ResultPage() {
     setTimeout(() => {
       history.replace('/leaderboard', { name: state.name, score: state.score, difficulty: state.difficulty, language: state.language })
       setAuthTokens(false)
-    }, 300);
+    }, 350);
   }
 
   return (
