@@ -1,7 +1,7 @@
 import url from '../config/url'
 
 const fetchWords = (diff, appear, lang) => {
-  let lowercased = diff.toLowerCase()
+  const lowercased = diff.toLowerCase()
   const param = lang === 'English' ? 'word' : lang === 'French' ? 'mot' : lang === 'Italian' ? 'parola' : 'palabra'
   const promise = new Promise((res, rej) => {
     fetch(`${url}/${param}/${lowercased}?wordmax=${appear}`)
@@ -31,7 +31,6 @@ const fetchLeaderBoard = () => {
 }
 
 const postLeaderBoard = (obj) => {
-  console.log(obj);
   const promise = new Promise((res, rej) => {
     fetch(`${url}/leaderboard`, {
       method: 'POST',

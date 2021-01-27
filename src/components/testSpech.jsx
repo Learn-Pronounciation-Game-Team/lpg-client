@@ -17,12 +17,14 @@ function Speechless ({ word, lang }) {
       code = 4
     }
     setLanguage(code)
+
+    return () => setLanguage(4)
   },[lang])
  
   return (
     <div>
       <button
-        className="text-xs px-1"
+        className="text-xs px-2 py-1"
         onClick={() => speak({ text: word , voice: voices[language] })} >{word} 
       </button>
     </div>
