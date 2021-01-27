@@ -63,21 +63,6 @@ function LeaderBoard() {
     return (
         <div className="background py-10 justify-start">
           <h1 className="sm:text-4xl text-2xl text-center mb-3">Leaderboard</h1>
-          {
-            state
-            ?
-            <div>
-              {
-                state.score === 0
-                ?
-                <p className="text-center container">Sorry {state.name}, you're cannot enlisted into leaderboard</p>
-                :
-                <p className="text-center container">Congratulations {state.name} clearing {state.difficulty} difficulty in {state.language} Language! Your score is {state.score}!</p>
-              }
-            </div>
-            :
-            ''
-          }
           <div className="flex justify-around w-full sm:w-10/12 flex-wrap">
             <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'English' ? true : false} onClick={() => {playChoosing(); setShowing('English')}}>English</button>
             <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'French' ? true : false} onClick={() => {playChoosing(); setShowing('French')}}>French</button>

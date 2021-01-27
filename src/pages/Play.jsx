@@ -205,7 +205,7 @@ function Play() {
         <div className="order-2 flex flex-col justify-around mx-2">
           <div className="sm:order-1 order-last outline-yellow">
             <p className=" text-base text-center border-b-2 border-yellow-200">Need to hear the word?</p>
-            <div className="flex flex-wrap justify-center">
+            <div className="flex flex-wrap justify-center py-4">
               {
                 words.map( (word, idx) => ( 
                   <Speechless word={ word } key={ idx } lang={ speechLang } />

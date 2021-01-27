@@ -8,15 +8,17 @@ function Diffboard ({ data }) {
           <p className="leaderboard-list">Name</p>
           <p className="leaderboard-list">Score</p>
         </div>
-        {
-          data.map((list, idx) => (
-            <div key={list._id} className="w-full grid grid-cols-3">
-              <p className="leaderboard-list">{ idx + 1 }</p>
-              <p className="leaderboard-list">{ list.name }</p>
-              <p className="leaderboard-list">{ list.score }</p>
-            </div>
-          ))
-        }
+        <div className="max-h-60 overflow-auto w-full">
+          {
+            data.map((list, idx) => (
+              <div key={list._id} className="w-full grid grid-cols-3">
+                <p className="leaderboard-list">{ idx + 1 }</p>
+                <p className="leaderboard-list">{ list.name }</p>
+                <p className="leaderboard-list">{ list.score }</p>
+              </div>
+            ))
+          }
+        </div>
     </div>
   )
 }

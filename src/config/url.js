@@ -1,4 +1,4 @@
-const url = 'http://localhost:3001'
+const url = 'https://peaceful-savannah-32951.herokuapp.com'
 
 export default url
 
