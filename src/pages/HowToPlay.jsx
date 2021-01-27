@@ -17,14 +17,15 @@ function HowToPlay() {
         <h1 className="text-4xl">How to Play?</h1>
         <ol className="sm:w-1/2 py-10 sm:px-8 list-decimal text-left w-4/6 ml-6 sm:ml-0 sm:text-base text-xs">
           <li className="my-5">Player will be given a set of words in the beginning.</li>
-          <li className="my-5">Choose one word from the set of words. (You can choose any words that available from the set of words).</li>
-          <li className="my-5">Press and Hold the 'Answer' button and then pronounce the word you've chosen.</li>
-          <li className="my-5">If your pronunciation is correct, the words will display exploding animations.</li>
-          <li className="my-5">If your pronunciation is incorrect, your health will be decreased as a punishment.</li>
-          <li className="my-5">Repeat the steps until all words have been pronunciated correctly.</li>
-          <li className="my-5">You're gonna lose when the time's up before you've pronounce all the words correctly.</li>
-          <li className="my-5">Be careful in pronouncing the words.</li>
-          <h1 className="text-center"> - Good Luck!! - </h1>
+          <li className="my-5">Choose one word from the set of words.</li>
+          <li className="my-5">Press and Hold the button and then pronounce the word you've chosen.</li>
+          <li className="my-5">If your pronunciation is correct, LPG will explode and you got the point.</li>
+          <li className="my-5">If not or you don't know how to pronounce it, at the right you will see set of words. Click it and you will hear the correct pronunciation of the word that you've clicked.</li>
+          <li className="my-5">Keep going until all those LPG's are all wiped out.</li>
+          <li className="my-5">Pay attention for the time you have. When time's up, the game will also end.</li>
+          <li className="my-5">Don't forget to have fun.</li>
+          <h1 className="text-center mb-8">  ---  </h1>
+          <h1 className="text-center"> - You can do it, blow 'em away!! - </h1>
         </ol>
         <div className="flex justify-center">
           <button onClick={jumpToMain} className="button">Back</button>

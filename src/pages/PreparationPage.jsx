@@ -26,7 +26,7 @@ export default function PreparationPage() {
     }
 
     return (
-      <div className="background py-10">
+      <div className="background py-3">
         <img className=" xl:w-3/12 lg:w-6/12 w-6/12 h-auto py-6" src={gameLogo} alt="LPG Icon" />
         <h1 className="sm:text-3xl text-center text-1xl">Who are you?</h1>
         <div className="flex flex-col items-center justify-center text-center w-10/12 sm:w-6/12">
@@ -37,31 +37,31 @@ export default function PreparationPage() {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <p className="mb-2">--Difficulty--</p>
+          <p className="my-2 text-lg">--Difficulty--</p>
           <div className="flex flex-wrap w-full justify-around mb-2">
             <div className="group">
               <label className="flex items-center" htmlFor="easy">
                 <input type="radio" name="difficulty" id="easy" value="Easy" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Easy'} onChange={(e) => {playChoosing(); setDiff(e.target.value)}}/>
                 Easy
-                <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-100">30 Second and 10 Words</span>
+                <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-70">30 Second, 10 Words, Each Word &le;4 Characters</span>
               </label>
             </div>
             <div className="group">
               <label className="flex items-center" htmlFor="medium">
                 <input type="radio" name="difficulty" id="medium" value="Medium" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Medium'} onChange={(e) => {playChoosing(); setDiff(e.target.value)}}/>
                 Medium
-                <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-100">25 Second and 13 Words</span>
+                <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-70">25 Second, 13 Words, Each Word &ge;4 & &le;6 Characters</span>
               </label>
             </div>
             <div className="group">
               <label className="flex items-center" htmlFor="hard">
                 <input type="radio" name="difficulty" id="hard" value="Hard" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Hard'} onChange={(e) => {playChoosing(); setDiff(e.target.value)}}/>
                 Hard
-                <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-100">20 Second and 15 Words</span>
+                <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-70">20 Second, 15 Words, Each Word &ge;6 Characters</span>
               </label>
             </div>
           </div>
-          <p className="mb-2">--Language--</p>
+          <p className="my-2 text-lg">--Language--</p>
           <div className="flex sm:flex-wrap flex-nowrap flex-col sm:flex-row w-full sm:justify-around items-center mb-2">
             <div>
               <label className="flex items-center" htmlFor="english">

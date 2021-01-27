@@ -42,12 +42,15 @@ function LeaderBoard() {
           setItalianLeaderboard(toItalian)
           setLoading(false)
         })
+        .catch((err) => {
+          console.log('Internal server error');
+        })
     }, [])
 
-    // return <Loading />
     if (loading) {
       return <Loading />
-    }
+    } 
+
     return (
         <div className="background py-10 justify-start">
           <h1 className="sm:text-4xl text-2xl text-center mb-3">Leaderboard</h1>
@@ -58,9 +61,9 @@ function LeaderBoard() {
               {
                 state.score === 0
                 ?
-                <p className="text-center">Sorry {state.name}, you're cannot enlisted into leaderboard</p>
+                <p className="text-center container">Sorry {state.name}, you're cannot enlisted into leaderboard</p>
                 :
-                <p className="text-center">Congratulations {state.name} clearing {state.difficulty} difficulty in {state.language} Language! Your score is {state.score}!</p>
+                <p className="text-center container">Congratulations {state.name} clearing {state.difficulty} difficulty in {state.language} Language! Your score is {state.score}!</p>
               }
             </div>
             :
