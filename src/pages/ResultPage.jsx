@@ -13,8 +13,8 @@ export default function ResultPage() {
   const history = useHistory()
   const { state } = useLocation()
   const [playClick] = useSound(clickSound, {volume: 0.15})
-  const [playFailed, {stop: failedStop}] = useSound(failed, {volume: 0.25})
-  const [playCongrats, {stop: congratsStop}] = useSound(congrats, {volume: 0.25})
+  const [playFailed, {stop: failedStop}] = useSound(failed, {volume: 0.15})
+  const [playCongrats, {stop: congratsStop}] = useSound(congrats, {volume: 0.15})
 
   useEffect(() => {
     if (state.score === 0) {

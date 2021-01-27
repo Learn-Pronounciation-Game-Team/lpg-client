@@ -17,7 +17,7 @@ function AboutUs() {
     return (
       <div className="background py-10 text-center px-3">
         <h1 className="text-4xl">About Us</h1>
-        <p className="text-xs px-3 text-left my-3">LPG ( Learn Pronounciation Game ) is our Final Project in 3rd Phase as a Student at Hacktiv8. This game give you a unique experience in learning pronunciation in Foreign Language. Here you can race against time to get best scores. The game offer various difficulty for you to tackle it and be better in pronunciation.</p>
+        <p className="text-xs px-3 text-center my-3 sm:w-7/12 w-10/12">LPG ( Learn Pronounciation Game ) is our Final Project in 3rd Phase as a Student at Hacktiv8. This game give you a unique experience in learning pronunciation in foreign languages. Here you can race against time to get best scores. The game offer various difficulty for you to tackle it and be better in pronunciation.</p>
         <h3 className="text-lg py-2">-- Our Team --</h3>
         <a className="text-xs py-1 hover:text-yellow-400" target="_blank" rel="noreferrer" href="https://github.com/jarooda">Jalu Wibowo Aji</a>
         <a className="text-xs py-1 hover:text-yellow-400" target="_blank" rel="noreferrer" href="https://github.com/FaishalFadhil">Achmad Faishal Fadhil</a>
