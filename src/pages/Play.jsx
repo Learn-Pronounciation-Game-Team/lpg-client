@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useHistory, useLocation } from 'react-router-dom'
 import Loading from '../components/Loading'
+import Error from '../components/Error'
 import SpeechRecognition, { useSpeechRecognition } from 'react-speech-recognition'
 import ClickNHold from 'react-click-n-hold';
 import useWindowDimensions from '../helpers/getCurrentWindow'
@@ -23,6 +24,7 @@ function Play() {
   const { setAuthTokens } = useAuth()
   const { state } = useLocation();
   const [ loading, setLoading ] = useState()
+  const [ error, setError ] = useState()
   const [ isExplode, setExplode ] = useState(false)
   const [ word, setWord ] = useState("")
   const [ words, setWords ] = useState([])
@@ -98,6 +100,10 @@ function Play() {
           setLoading(false)
           // setIsFinish(false)
         })
+        .catch((err) => {
+          setError(err)
+          setLoading(false)
+        })
       
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
@@ -120,8 +126,11 @@ function Play() {
         .then((res) => {
           history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff, language: state.lang })
           setAuthTokens(false)
+        })  
+        .catch((err) => {
+          setError(err)
+          setLoading(false)
         })
-        .catch((err) => console.log(err))
       }
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -183,6 +192,10 @@ function Play() {
 
   if (loading) {
     return <Loading />
+  }
+
+  if (error) {
+    return <Error err={error} />
   }
 
   return (
