@@ -40,10 +40,10 @@ function LeaderBoard() {
         })
     }, [])
 
-    // return <Loading />
     if (loading) {
       return <Loading />
-    }
+    } 
+
     return (
         <div className="background py-10 justify-start">
           <h1 className="sm:text-4xl text-2xl text-center mb-3">Leaderboard</h1>
