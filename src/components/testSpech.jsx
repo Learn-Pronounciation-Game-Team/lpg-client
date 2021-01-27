@@ -24,7 +24,7 @@ function Speechless ({ word, lang }) {
   return (
     <div>
       <button
-        className="text-xs px-2 py-1"
+        className="text-xs px-2 py-1 hover:text-yellow-400"
         onClick={() => speak({ text: word , voice: voices[language] })} >{word} 
       </button>
     </div>
