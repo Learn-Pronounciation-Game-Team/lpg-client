@@ -1,7 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
 import useSound from 'use-sound'
-import openingSound from '../assets/opening.mp3'
 import clickSound from '../assets/clickSound.mp3'
 
 //Assets
@@ -9,22 +8,27 @@ import gameLogo from '../assets/gameLogo.png'
 
 export default function LandingPage() {
   const history = useHistory()
-  const [playOpening] = useSound(openingSound, {volume: 0.15})
   const [playClick] = useSound(clickSound, {volume: 0.15})
 
   function jumpToHowToPlay() {
     playClick()
-    history.push('/howtoplay')
+    setTimeout(() => {
+      history.push('/howtoplay')
+    }, 200);
   }
 
   function jumpToLeaderBoard() {
     playClick()
-    history.push('/leaderboard')
+    setTimeout(() => {
+      history.push('/leaderboard')
+    }, 200);
   }
 
   function jumpToPreparationPage() {
-    playOpening()
-    history.push('/preparation')
+    playClick()
+    setTimeout(() => {
+      history.push('/preparation', {game:true})
+    }, 200);
   }
 
   return (

@@ -46,7 +46,8 @@ function Play() {
       playChallenge()
       playBGM()
     }
-  }, [state, playBGM, playChallenge])
+    return () => stop()
+  }, [state, playBGM, playChallenge, stop])
 
   useEffect(() => { //timeleft
     if (!timeLeft) return;
@@ -116,14 +117,13 @@ function Play() {
   // ? kondisional untuk post ke server
   useEffect(() => {
     if (timeLeft === 0 || isFinish) {
-      stop()
       end()
       if (score === 0) {
         history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff, language: state.lang })
         setAuthTokens(false)
       } else {
         API.postLeaderBoard({name: state.name, score, difficulty: state.diff, language: state.lang})
-        .then((res) => {
+        .then(() => {
           history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff, language: state.lang })
           setAuthTokens(false)
         })  

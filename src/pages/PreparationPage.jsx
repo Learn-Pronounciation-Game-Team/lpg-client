@@ -1,28 +1,40 @@
-import React, { useState } from 'react'
-import { useHistory } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { useHistory, useLocation } from 'react-router-dom'
 import { useAuth } from '../context/auth'
 import clickSound from '../assets/clickSound.mp3'
 import choosingSound from '../assets/choosingSound.mp3'
 import useSound from 'use-sound'
+import openingSound from '../assets/opening.mp3'
 
 //Assets
 import gameLogo from '../assets/gameLogo.png'
 
 export default function PreparationPage() {
     const history = useHistory()
+    const { state } = useLocation()
     const [playClick] = useSound(clickSound, {volume: 0.15})
     const [playChoosing] = useSound(choosingSound, {volume: 0.15})
+    const [playOpening, { stop }] = useSound(openingSound, {volume: 0.15})
     const [ name, setName ] = useState("")
     const [ diff, setDiff ] = useState("")
     const [ lang, setLang ] = useState("")
     const { setAuthTokens } = useAuth()
+
+    useEffect(() => {
+      if (state.game) {
+        playOpening()
+      }
+      return () => stop()
+    }, [state.game, playOpening, stop])
 
     function jumpToGame() {
       let appear = diff === 'Easy' ? 10 : diff === 'Medium' ? 13 : 15
       let timer = diff === 'Easy' ? 30 : diff === 'Medium' ? 25 : 20
       setAuthTokens(true)
       playClick()
-      history.push('/gameplay', { diff, name, appear, timer, lang })
+      setTimeout(() => {
+        history.push('/gameplay', { diff, name, appear, timer, lang })
+      }, 200);
     }
 
     return (
@@ -92,7 +104,9 @@ export default function PreparationPage() {
           <div className="flex flex-col sm:flex-row mt-4">
             <button
               className="button order-1"
-              onClick={() => {playClick(); history.push('/')}}
+              onClick={() => {playClick(); setTimeout(() => {
+                history.push('/')
+              }, 200)}}
             >Back</button>
             <button
               className="button disabled:opacity-50 sm:order-2"
