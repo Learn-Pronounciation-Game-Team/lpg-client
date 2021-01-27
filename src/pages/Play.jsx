@@ -12,8 +12,7 @@ import API from '../api'
 import Explode from '../helpers/exploded/explode'
 import bomb from '../assets/Effect_more_red.png'
 import explodeJson from '../helpers/exploded/explode.json'
-import Speechless from '../components/testSpech' 
-import { useAuth } from '../context/auth'
+import Speechless from '../components/testSpech'
 import duar from '../assets/duar.mp3'
 import useSound from 'use-sound';
 import rumbleSong from '../assets/bensound-rumble.mp3'
@@ -21,7 +20,6 @@ import challenge from '../assets/challenge.mp3'
 let bombImage
 
 function Play() {
-  const { setAuthTokens } = useAuth()
   const { state } = useLocation();
   const [ loading, setLoading ] = useState()
   const [ error, setError ] = useState()
@@ -120,12 +118,10 @@ function Play() {
       end()
       if (score === 0) {
         history.replace('/result', { name: state.name, score, difficulty: state.diff, language: state.lang })
-        setAuthTokens(false)
       } else {
         API.postLeaderBoard({name: state.name, score, difficulty: state.diff, language: state.lang})
         .then(() => {
           history.replace('/result', { name: state.name, score, difficulty: state.diff, language: state.lang })
-          setAuthTokens(false)
         })  
         .catch((err) => {
           setError(err)
@@ -202,7 +198,7 @@ function Play() {
     <div className="background py-3 px-1">
       <h1 className="sm:text-3xl text-center text-1xl sm:py-3">Good Luck! Score: {score}</h1>
       {
-        timeLeft > 9 ? <p>Remaining Time : { timeLeft }:{milis} </p> :  <p>Remaining Time : 0{ timeLeft }:{milis} </p>
+        timeLeft > 9 ? <p className="text-center">Remaining Time : { timeLeft }:{milis} </p> :  <p className="text-center">Remaining Time : 0{ timeLeft }:{milis} </p>
       }
       <div className="flex w-full justify-center sm:items-end items-center flex-col sm:flex-row landscape:flex-row">
         <Sketch setup={setup} draw={draw} windowResized={windowResized} className=" order-1"/>

@@ -10,6 +10,7 @@ import PrivateRoute from './pages/PrivateRoute'
 import ResultPage from './pages/ResultPage'
 import { AuthContext } from './context/auth'
 
+
 function App() {
   const [authTokens, setAuthTokens] = useState(false);
   
@@ -31,15 +32,13 @@ function App() {
             <LeaderBoard />
           </Route>
           <PrivateRoute path="/gameplay" component={Play} />
-          {/* <Route path="/gameplay">
-            <Play />
-          </Route> */}
+          <PrivateRoute path="/result" component={ResultPage} />
           <Route path="/preparation">
             <PreparationPage />
           </Route>
-          <Route path="/result">
+          {/* <Route path="/result">
             <ResultPage />
-          </Route>
+          </Route> */}
         </Switch>
       </Router>
     </AuthContext.Provider>

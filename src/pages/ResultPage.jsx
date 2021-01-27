@@ -6,8 +6,10 @@ import failed from '../assets/failed.mp3'
 import laugh from '../assets/LPG_-_Laugh.png'
 import sad from '../assets/LPG_-_Sad.png'
 import congrats from '../assets/congrats.mp3'
+import { useAuth } from '../context/auth'
 
 export default function ResultPage() {
+  const { setAuthTokens } = useAuth()
   const history = useHistory()
   const { state } = useLocation()
   const [playClick] = useSound(clickSound, {volume: 0.15})
@@ -27,22 +29,24 @@ export default function ResultPage() {
   function jumpToHome() {
     playClick()
     setTimeout(() => {
-      history.push('/')
+      history.replace('/')
+      setAuthTokens(false)
     }, 200);
   }
 
   function jumpToLeaderBoard() {
     playClick()
     setTimeout(() => {
-      history.push('/leaderboard', { name: state.name, score: state.score, difficulty: state.difficulty, language: state.language })
+      history.replace('/leaderboard', { name: state.name, score: state.score, difficulty: state.difficulty, language: state.language })
+      setAuthTokens(false)
     }, 300);
   }
 
   return (
     <div className="background py-10">
       <h3 className="sm:text-3xl text-center text-1xl mb-10">{state.score === 0 ? 'SORRY YOU FAILED, HAHAHA!' : 'CONGRATULATIONS!'}</h3>
-      <img className=" xl:w-3/12 lg:w-6/12 w-6/12 h-auto py-5" src={state.score === 0 ? laugh : sad} alt="LPG Icon" />
-      <h5 className="sm:text-3xl text-center text-1xl mb-6">{
+      <img className=" xl:w-2/12 lg:w-3/12 w-4/12 h-auto py-5" src={state.score === 0 ? laugh : sad} alt="LPG Icon" />
+      <h5 className="sm:text-3xl text-center text-1xl mb-10">{
                 state.score === 0
                 ?
                 `Sorry ${state.name}, you're cannot enlisted into leaderboard`
