@@ -38,6 +38,9 @@ function LeaderBoard() {
           setItalianLeaderboard(toItalian)
           setLoading(false)
         })
+        .catch((err) => {
+          console.log('Internal server error');
+        })
     }, [])
 
     // return <Loading />
