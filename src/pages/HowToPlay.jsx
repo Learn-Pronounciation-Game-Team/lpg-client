@@ -1,10 +1,14 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import clickSound from '../assets/clickSound.mp3'
+import useSound from 'use-sound'
 
 function HowToPlay() {
     const history = useHistory()
+    const [playClick] = useSound(clickSound, {volume: 0.15})
 
     function jumpToMain() {
+        playClick()
         history.push('/')
     }
 

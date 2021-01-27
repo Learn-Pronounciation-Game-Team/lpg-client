@@ -6,7 +6,7 @@ import ClickNHold from 'react-click-n-hold';
 import useWindowDimensions from '../helpers/getCurrentWindow'
 import Sketch from "react-p5";
 import Word from '../helpers/randomText'
-import image from '../assets/Game_-_Logo.png'
+import image from '../assets/bomb.gif'
 import API from '../api'
 import Explode from '../helpers/exploded/explode'
 import bomb from '../assets/Effect_more_red.png'
@@ -14,11 +14,10 @@ import explodeJson from '../helpers/exploded/explode.json'
 import Speechless from '../components/testSpech' 
 import { useAuth } from '../context/auth'
 import duar from '../assets/duar.mp3'
-import 'p5/lib/addons/p5.sound'
+import useSound from 'use-sound';
+import rumbleSong from '../assets/bensound-rumble.mp3'
+import challenge from '../assets/challenge.mp3'
 let bombImage
-let effectSound
-// import rumbleSong from '../assets/bensound-rumble.mp3'
-// let gameSong
 
 function Play() {
   const { setAuthTokens } = useAuth()
@@ -35,6 +34,16 @@ function Play() {
   const [ speechLang ] = useState(state.lang === 'English' ? 'en-US' : state.lang === 'French' ? 'fr-FR' : state.lang === 'Italian' ? 'it-IT' : 'es-ES')
   const history = useHistory()
   const [timeLeft, setTimeLeft] = useState(state.timer);
+  const [playEffect] = useSound(duar, { volume: 0.15 })
+  const [playChallenge] = useSound(challenge, { volume: 0.15 })
+  const [playBGM, {stop}] = useSound(rumbleSong, { volume: 0.01 })
+
+  useEffect(() => {
+    if (state) {
+      playChallenge()
+      playBGM()
+    }
+  }, [state, playBGM, playChallenge])
 
   useEffect(() => { //timeleft
     if (!timeLeft) return;
@@ -65,6 +74,7 @@ function Play() {
       let inputs = word.split(' ') // dari mic
       if (words.includes(inputs[inputs.length - 1])) {
         setExplode(true)
+        playEffect()
         setTimeout(() => {
           const filtered = words.filter(word => word !== inputs[inputs.length - 1])
           const filteredMoving = moving.filter(move => move.text !== inputs[inputs.length - 1])
@@ -102,6 +112,7 @@ function Play() {
   // ? kondisional untuk post ke server
   useEffect(() => {
     if (timeLeft === 0) {
+      stop()
       end()
       if (score === 0) {
         history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff, language: state.lang })
@@ -119,6 +130,7 @@ function Play() {
   }, [score, timeLeft])
 
   // const preload = (p5) => {
+  //   effectSound =  p5.loadSound(duar)
     
   // }
   
@@ -128,7 +140,6 @@ function Play() {
       // (without that p5 will render the canvas outside of your component)
       bombImage = p5.loadImage(bomb)
       // gameSong = p5.loadSound(rumbleSong)
-      effectSound =  p5.loadSound(duar)
       p5.createCanvas(width / 1.5, height / 2).parent(canvasParentRef);
       for(let i = 0; i < words.length; i++) {
         moving[i] = new Word(p5.random(40, (width / 2) - 100), p5.random(40, (height / 2) - 100), p5.random(-3, 3), p5.random(-3, 3), words[i], width, height, p5.loadImage(image));
@@ -147,7 +158,7 @@ function Play() {
     // gameSong.play()
 
     if (isExplode === true) {
-      effectSound.play()
+      // effectSound.play()
       let frames = explodeJson.frames
       let animations = []
       for (let i = 0; i < frames.length; i++) {
