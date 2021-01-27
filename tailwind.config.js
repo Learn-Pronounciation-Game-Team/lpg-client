@@ -4,6 +4,7 @@ module.exports = {
   theme: {
     extend: {
       backgroundImage: theme => ({
+        // 'wave-purple-dark': "url('../background/wave-purple-dark.svg')",
         'wave-purple-dark': "url('../background/wave-purple-dark.svg')",
        }),
       fontFamily: {
