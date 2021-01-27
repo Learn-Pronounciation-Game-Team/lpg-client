@@ -21,6 +21,15 @@ export default function PreparationPage() {
     const { setAuthTokens } = useAuth()
 
     useEffect(() => {
+      const localName = localStorage.getItem('name')
+      if (localName) {
+        if (localName.length <= 10) {
+          setName(localName)
+        }
+      }
+    }, [])
+
+    useEffect(() => {
       if (state) {
         playOpening()
       }
@@ -30,6 +39,10 @@ export default function PreparationPage() {
     function jumpToGame() {
       let appear = diff === 'Easy' ? 10 : diff === 'Medium' ? 13 : 15
       let timer = diff === 'Easy' ? 30 : diff === 'Medium' ? 25 : 20
+      const localName = localStorage.getItem('name')
+      if (!localName || localName.length > 10 || localName !== name) {
+        localStorage.setItem('name', name)
+      }
       setAuthTokens(true)
       playClick()
       setTimeout(() => {
