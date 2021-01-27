@@ -9,7 +9,9 @@ function HowToPlay() {
 
     function jumpToMain() {
         playClick()
-        history.push('/')
+        setTimeout(() => {
+          history.push('/')
+        }, 200);
     }
 
     return (

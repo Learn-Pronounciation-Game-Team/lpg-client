@@ -3,6 +3,7 @@ import { useHistory, useLocation } from 'react-router-dom'
 import API from '../api/index'
 import LeaderboardList from '../components/LeaderboardList'
 import clickSound from '../assets/clickSound.mp3'
+import choosingSound from '../assets/choosingSound.mp3'
 import useSound from 'use-sound'
 import Loading from '../components/Loading'
 
@@ -16,6 +17,7 @@ function LeaderBoard() {
     const [ diff, setDiff ] = useState('Easy')
     const history = useHistory()
     const { state } = useLocation()
+    const [playChoosing] = useSound(choosingSound, {volume: 0.15})
     const [playClick] = useSound(clickSound, {volume: 0.15})
 
 
@@ -70,10 +72,10 @@ function LeaderBoard() {
             ''
           }
           <div className="flex justify-around w-full sm:w-10/12 flex-wrap">
-            <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'English' ? true : false} onClick={() => setShowing('English')}>English</button>
-            <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'French' ? true : false} onClick={() => setShowing('French')}>French</button>
-            <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'Spanish' ? true : false} onClick={() => setShowing('Spanish')}>Spanish</button>
-            <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'Italian' ? true : false} onClick={() => setShowing('Italian')}>Italian</button>
+            <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'English' ? true : false} onClick={() => {playChoosing(); setShowing('English')}}>English</button>
+            <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'French' ? true : false} onClick={() => {playChoosing(); setShowing('French')}}>French</button>
+            <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'Spanish' ? true : false} onClick={() => {playChoosing(); setShowing('Spanish')}}>Spanish</button>
+            <button className="sm:text-xl text-lg text-center my-3 mx-1 cursor-pointer disabled:opacity-100 opacity-30" disabled={showing === 'Italian' ? true : false} onClick={() => {playChoosing(); setShowing('Italian')}}>Italian</button>
           </div>
           {
             showing === 'English'
@@ -92,7 +94,9 @@ function LeaderBoard() {
           }
           <button onClick={() => {
             playClick()
-            history.push('/')}} className="button mt-3">Back</button>
+            setTimeout(() => {
+              history.push('/')  
+            }, 200)}} className="button mt-3">Back</button>
         </div>
     )
 }
