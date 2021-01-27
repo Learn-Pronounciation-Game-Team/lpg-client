@@ -7,6 +7,7 @@ import HowToPlay from './pages/HowToPlay'
 import LeaderBoard from './pages/LeaderBoard'
 import PreparationPage from './pages/PreparationPage'
 import PrivateRoute from './pages/PrivateRoute'
+import ResultPage from './pages/ResultPage'
 import { AuthContext } from './context/auth'
 
 function App() {
@@ -35,6 +36,9 @@ function App() {
           </Route> */}
           <Route path="/preparation">
             <PreparationPage />
+          </Route>
+          <Route path="/result">
+            <ResultPage />
           </Route>
         </Switch>
       </Router>

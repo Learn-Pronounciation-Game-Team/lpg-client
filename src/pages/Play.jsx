@@ -112,12 +112,12 @@ function Play() {
     if (timeLeft === 0 || isFinish) {
       end()
       if (score === 0) {
-        history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff, language: state.lang })
+        history.replace('/result', { name: state.name, score, difficulty: state.diff, language: state.lang })
         setAuthTokens(false)
       } else {
         API.postLeaderBoard({name: state.name, score, difficulty: state.diff, language: state.lang})
         .then(() => {
-          history.replace('/leaderboard', { name: state.name, score, difficulty: state.diff, language: state.lang })
+          history.replace('/result', { name: state.name, score, difficulty: state.diff, language: state.lang })
           setAuthTokens(false)
         })
         .catch((err) => console.log(err))
