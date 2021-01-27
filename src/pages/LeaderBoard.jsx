@@ -6,12 +6,14 @@ import clickSound from '../assets/clickSound.mp3'
 import choosingSound from '../assets/choosingSound.mp3'
 import useSound from 'use-sound'
 import Loading from '../components/Loading'
+import Error from '../components/Error'
 
 function LeaderBoard() {
     const [ englishLeaderboard, setEnglishLeaderboard ] = useState([])
     const [ frenchLeaderboard, setFrenchLeaderboard ] = useState([])
     const [ spanishLeaderboard, setSpanishLeaderboard ] = useState([])
     const [ italianLeaderboard, setItalianLeaderboard ] = useState([])
+    const [ error, setError ] = useState()
     const [ loading, setLoading ] = useState()
     const [ showing, setShowing ] = useState('English')
     const [ diff, setDiff ] = useState('Easy')
@@ -45,13 +47,18 @@ function LeaderBoard() {
           setLoading(false)
         })
         .catch((err) => {
-          console.log('Internal server error');
+          setError(err)
+          setLoading(false)
         })
     }, [])
 
     if (loading) {
       return <Loading />
-    } 
+    }
+
+    if (error) {
+      return <Error err={error}/>
+    }
 
     return (
         <div className="background py-10 justify-start">
