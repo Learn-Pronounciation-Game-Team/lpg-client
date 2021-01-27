@@ -52,21 +52,21 @@ export default function PreparationPage() {
           <p className="mb-2">-- Difficulty --</p>
           <div className="flex flex-wrap w-full justify-around mb-5">
             <div className="group">
-              <label className="flex items-center" htmlFor="easy">
+              <label className="hover:text-yellow-400 flex items-center" htmlFor="easy">
                 <input type="radio" name="difficulty" id="easy" value="Easy" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Easy'} onChange={(e) => {playChoosing(); setDiff(e.target.value)}}/>
                 Easy
                 <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-70">30 Second, 10 Words, Each Word &le;4 Characters</span>
               </label>
             </div>
             <div className="group">
-              <label className="flex items-center" htmlFor="medium">
+              <label className="hover:text-yellow-400 flex items-center" htmlFor="medium">
                 <input type="radio" name="difficulty" id="medium" value="Medium" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Medium'} onChange={(e) => {playChoosing(); setDiff(e.target.value)}}/>
                 Medium
                 <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-70">25 Second, 13 Words, Each Word &ge;4 & &le;6 Characters</span>
               </label>
             </div>
             <div className="group">
-              <label className="flex items-center" htmlFor="hard">
+              <label className="hover:text-yellow-400 flex items-center" htmlFor="hard">
                 <input type="radio" name="difficulty" id="hard" value="Hard" className="bg-transparent mr-2 border-yellow-200" checked={diff === 'Hard'} onChange={(e) => {playChoosing(); setDiff(e.target.value)}}/>
                 Hard
                 <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-70">20 Second, 15 Words, Each Word &ge;6 Characters</span>
@@ -76,26 +76,26 @@ export default function PreparationPage() {
           <p className="mb-2">-- Language --</p>
           <div className="flex sm:flex-wrap flex-nowrap flex-col sm:flex-row w-full sm:justify-around items-center mb-5">
             <div>
-              <label className="flex items-center" htmlFor="english">
+              <label className="hover:text-yellow-400 flex items-center" htmlFor="english">
                 <input type="radio" name="language" id="english" value="English" className="bg-transparent mr-2 border-yellow-200" checked={lang === 'English'} onChange={(e) => {playChoosing(); setLang(e.target.value)}}/>
                 English
                 <span className="opacity-0 min-w-12 bg-white text-black font-mono text-center rounded-md px-2 absolute z-10 mb-12 ml-5 group-hover:opacity-100">English Language</span>
               </label>
             </div>
             <div>
-              <label className="flex items-center" htmlFor="french">
+              <label className="hover:text-yellow-400 flex items-center" htmlFor="french">
                 <input type="radio" name="language" id="french" value="French" className="bg-transparent mr-2 border-yellow-200" checked={lang === 'French'} onChange={(e) => {playChoosing(); setLang(e.target.value)}}/>
                 French
               </label>
             </div>
             <div>
-              <label className="flex items-center" htmlFor="spanish">
+              <label className="hover:text-yellow-400 flex items-center" htmlFor="spanish">
                 <input type="radio" name="language" id="spanish" value="Spanish" className="bg-transparent mr-2 border-yellow-200" checked={lang === 'Spanish'} onChange={(e) => {playChoosing(); setLang(e.target.value)}}/>
                 Spanish
               </label>
             </div>
             <div>
-              <label className="flex items-center" htmlFor="italian">
+              <label className="hover:text-yellow-400 flex items-center" htmlFor="italian">
                 <input type="radio" name="language" id="italian" value="Italian" className="bg-transparent mr-2 border-yellow-200" checked={lang === 'Italian'} onChange={(e) => {playChoosing(); setLang(e.target.value)}}/>
                 Italian
               </label>

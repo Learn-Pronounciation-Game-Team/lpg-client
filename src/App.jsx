@@ -8,6 +8,7 @@ import LeaderBoard from './pages/LeaderBoard'
 import PreparationPage from './pages/PreparationPage'
 import PrivateRoute from './pages/PrivateRoute'
 import NotFound from './pages/notFound'
+import AboutUs from './pages/AboutUs'
 import ResultPage from './pages/ResultPage'
 import { AuthContext } from './context/auth'
 
@@ -31,6 +32,9 @@ function App() {
           </Route>
           <Route path="/leaderboard">
             <LeaderBoard />
+          </Route>
+          <Route path="/aboutus">
+            <AboutUs />
           </Route>
           <PrivateRoute path="/gameplay" component={Play} />
           <PrivateRoute path="/result" component={ResultPage} />

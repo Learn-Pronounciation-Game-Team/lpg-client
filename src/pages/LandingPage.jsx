@@ -31,6 +31,13 @@ export default function LandingPage() {
     }, 200);
   }
 
+  function jumpToAboutUs() {
+    playClick()
+    setTimeout(() => {
+      history.push('/aboutus')
+    }, 200);
+  }
+
   return (
     <div className="background py-10">
       <h1 className="sm:text-8xl text-5xl"> L P G </h1>
@@ -40,6 +47,7 @@ export default function LandingPage() {
         <button onClick={jumpToHowToPlay} className="order-1 button">How to Play</button>
         <button onClick={jumpToPreparationPage} className="sm:order-2 button">Start</button>
         <button onClick={jumpToLeaderBoard} className="order-3 button">Leaderboards</button>
+        <button onClick={jumpToAboutUs} className="order-4 button">About Us</button>
       </div>
     </div>
   )
