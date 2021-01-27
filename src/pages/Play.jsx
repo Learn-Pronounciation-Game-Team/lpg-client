@@ -34,6 +34,7 @@ function Play() {
   const [ speechLang ] = useState(state.lang === 'English' ? 'en-US' : state.lang === 'French' ? 'fr-FR' : state.lang === 'Italian' ? 'it-IT' : 'es-ES')
   const history = useHistory()
   const [timeLeft, setTimeLeft] = useState(state.timer);
+  const [ milis, setMilis ] = useState("")
   const [playEffect] = useSound(duar, { volume: 0.15 })
   const [playChallenge] = useSound(challenge, { volume: 0.15 })
   const [playBGM, {stop}] = useSound(rumbleSong, { volume: 0.01 })
@@ -177,23 +178,19 @@ function Play() {
       // NOTE: Do not use setState in the draw function or in functions that are executed
       // in the draw function...
       // please use normal variables or class properties for these purposes
-
-    p5.fill("orange");
-    p5.textSize((3/100) * height);
-
-    if ( timeLeft > 9 ) {
-      p5.text("00 : " + timeLeft + " : " + p5.millis().toString().slice(2, 4) , 20, 50)
-    } else if ( timeLeft < 10 ) {
-      p5.text("00 : 0" + timeLeft + " : " + p5.millis().toString().slice(2, 4) , 20, 50)
-    }
+    setMilis(p5.millis().toString().slice(2, 4))
   };
 
   if (loading) {
     return <Loading />
   }
+
   return (
     <div className="background py-3 px-1">
       <h1 className="sm:text-3xl text-center text-1xl sm:py-3">Good Luck! Score: {score}</h1>
+      {
+        timeLeft > 9 ? <p>Remaining Time : { timeLeft }:{milis} </p> :  <p>Remaining Time : 0{ timeLeft }:{milis} </p>
+      }
       <div className="flex w-full justify-center sm:items-end items-center flex-col sm:flex-row landscape:flex-row">
         <Sketch setup={setup} draw={draw} windowResized={windowResized} className=" order-1"/>
         <div className="order-2 flex flex-col justify-around mx-2">
