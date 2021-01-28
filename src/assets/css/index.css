@@ -16,4 +16,11 @@
   .leaderboard-list {
     @apply px-3 sm:text-base text-xs text-center break-all
   }
+
+  .no-select {
+    -webkit-user-select: none;  
+    -moz-user-select: none;    
+    -ms-user-select: none;      
+    user-select: none;
+  }
 }

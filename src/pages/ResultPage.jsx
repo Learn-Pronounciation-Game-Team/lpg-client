@@ -34,6 +34,14 @@ export default function ResultPage() {
     }, 350);
   }
 
+  function jumpToPrep() {
+    playClick()
+    setTimeout(() => {
+      history.replace('/preparation')
+      setAuthTokens(false)
+    }, 350);
+  }
+
   function jumpToLeaderBoard() {
     playClick()
     setTimeout(() => {
@@ -54,7 +62,8 @@ export default function ResultPage() {
         `Congratulations ${state.name} clearing ${state.difficulty} difficulty in ${state.language} Language! Your score is ${state.score}!`
       }</h5>
       <div className="flex justify-center flex-wrap">
-        <button onClick={jumpToHome} className="order-1 button">Back</button>
+        <button onClick={jumpToPrep} className="order-1 button">Try Play Again</button>
+        <button onClick={jumpToHome} className="order-1 button">Home</button>
         <button onClick={jumpToLeaderBoard} className="order-3 button">Leaderboards</button>
       </div>
     </div>

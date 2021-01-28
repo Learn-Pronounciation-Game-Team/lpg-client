@@ -65,7 +65,7 @@ function Play() {
 	}
     
 	function Hold(){
-		return SpeechRecognition.startListening({continuous: true}) 
+		return SpeechRecognition.startListening({continuous: true, language: speechLang}) 
   }
 
   // ? memfilter kata2
@@ -216,13 +216,13 @@ function Play() {
           <p className=" my-3 text-center outline-yellow py-2 order-1 text-xs">{state.name} said: {getLastIndex(word)}</p>
           <div className=" sm:order-4 text-center">
             <ClickNHold
-              className="button p-2 mt-2 mb-0"
+              className="button p-2 mt-2 mb-0 no-select"
               time={1} // Time to keep pressing. Default is 2
               onStart={start} // Start callback
               onClickNHold={Hold} //Timeout callback
               onEnd={end}
               >
-              <button>Press & Hold</button>
+              <button>Hold Here to Speak</button>
             </ClickNHold>
           </div>
         </div>
